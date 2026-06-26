@@ -5,13 +5,12 @@ import { useEffect, useRef, useState } from "react";
 export default function Leite() {
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const [cardsVisiveis, setCardsVisiveis] = useState(false);
+  
+  // Estado para controlar qual dos três cards inferiores está aberto/expandido
+  const [cardAberto, setCardAberto] = useState<number | null>(null);
 
   useEffect(() => {
-    // Solução para remover a barra de rolagem horizontal desnecessária
-    // que aparece ao forçar a largura total da tela no Windows.
-    document.documentElement.style.overflowX = 'hidden';
-    document.body.style.overflowX = 'hidden';
-
+    // Observador para ativar a animação de opacidade dos cards ao entrar na tela
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -27,16 +26,11 @@ export default function Leite() {
 
     return () => {
       if (cardsRef.current) observer.unobserve(cardsRef.current);
-      // Limpa a alteração ao sair da página para não afetar outras rotas
-      document.documentElement.style.overflowX = '';
-      document.body.style.overflowX = '';
     };
   }, []);
 
   return (
-    // CORREÇÃO: Trocado 'overflow-hidden' por 'overflow-x-hidden'. 
-    // Agora a rolagem vertical (para cima e para baixo) está totalmente livre e destravada!
-    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 -mt-8 md:-mt-12 -mb-8 md:-mb-12 bg-[#EAE7D6] text-[#D03C7A] overflow-x-hidden min-h-screen font-sans pb-32 pt-24 md:pt-36">
+    <div className="w-full bg-[#EAE7D6] text-[#D03C7A] overflow-x-hidden min-h-screen font-sans pb-32 pt-24 md:pt-36">
       
       {/* Contêiner Principal - Limitando a largura para telas muito grandes e centralizando */}
       <div className="max-w-[1300px] w-full mx-auto px-6 md:px-12">
@@ -150,22 +144,37 @@ export default function Leite() {
         </div>
 
         {/* =========================================
-            SECÇÃO INFERIOR: Cards Amarelos
+            SECÇÃO INFERIOR: Cards Amarelos Interativos
             ========================================= */}
         <div 
           ref={cardsRef}
-          className={`flex flex-col md:flex-row justify-between items-center md:items-stretch gap-6 md:gap-4 w-full mt-24 xl:mt-32 transition-opacity duration-1000 ease-in-out relative z-30
+          className={`flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 md:gap-4 w-full mt-24 xl:mt-32 transition-opacity duration-1000 ease-in-out relative z-30
             ${cardsVisiveis ? 'opacity-100' : 'opacity-0'}`}
         >
           
           {/* Card 1 */}
-          <div className="bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 flex-1 w-full relative hover:-translate-y-2 transition-transform duration-300">
+          <div 
+            onClick={() => setCardAberto(cardAberto === 1 ? null : 1)}
+            className={`bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px]
+              ${cardAberto === 1 ? 'border-[#D03C7A]' : 'border-transparent'}`}
+          >
             <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
               Períodos Críticos <br/> da Lactação
             </h4>
             <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
               O que fazer nas fases em que a ovelha precisa de mais nutrientes.
             </p>
+            
+            {/* Informações detalhadas exibidas ao clicar */}
+            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${cardAberto === 1 ? 'max-h-[300px] opacity-100 mt-4 pt-4 border-t border-black/10' : 'max-h-0 opacity-0'}`}>
+              <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
+                O terço inicial da lactação (primeiras 6 semanas) é a fase de pico de produção de leite. Como as ovelhas consomem menos energia do que gastam nesse período, é indispensável fornecer volumoso de altíssima qualidade e suplementar com ração concentrada para evitar a perda de peso excessiva e distúrbios como a cetose.
+              </p>
+            </div>
+            
+            <span className="absolute bottom-3 right-6 text-[10px] md:text-xs font-bold text-black/50">
+              {cardAberto === 1 ? "Clique para fechar ▲" : "Clique para ler mais ▼"}
+            </span>
           </div>
 
           {/* Estrela Separadora 1 */}
@@ -175,7 +184,11 @@ export default function Leite() {
           </div>
 
           {/* Card 2 */}
-          <div className="bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 flex-1 w-full relative hover:-translate-y-2 transition-transform duration-300">
+          <div 
+            onClick={() => setCardAberto(cardAberto === 2 ? null : 2)}
+            className={`bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px]
+              ${cardAberto === 2 ? 'border-[#D03C7A]' : 'border-transparent'}`}
+          >
             <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
               Indicadores que o <br/> Criador Deve Acompanhar
             </h4>
@@ -185,6 +198,17 @@ export default function Leite() {
               <li>Condição corporal</li>
               <li>Saúde da glândula mamária</li>
             </ul>
+
+            {/* Informações detalhadas exibidas ao clicar */}
+            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${cardAberto === 2 ? 'max-h-[300px] opacity-100 mt-4 pt-4 border-t border-black/10' : 'max-h-0 opacity-0'}`}>
+              <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
+                Anote as variações diárias! Quedas repentinas de leite indicam problemas de saúde. Lembre-se que ovelhas lactantes podem beber mais de 10 litros de água por dia. Além disso, faça exames visuais regulares no úbere para identificar mastite subclínica precocemente.
+              </p>
+            </div>
+
+            <span className="absolute bottom-3 right-6 text-[10px] md:text-xs font-bold text-black/50">
+              {cardAberto === 2 ? "Clique para fechar ▲" : "Clique para ler mais ▼"}
+            </span>
           </div>
 
           {/* Estrela Separadora 2 */}
@@ -194,13 +218,28 @@ export default function Leite() {
           </div>
 
           {/* Card 3 */}
-          <div className="bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 flex-1 w-full relative hover:-translate-y-2 transition-transform duration-300">
+          <div 
+            onClick={() => setCardAberto(cardAberto === 3 ? null : 3)}
+            className={`bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px]
+              ${cardAberto === 3 ? 'border-[#D03C7A]' : 'border-transparent'}`}
+          >
             <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
               Impacto do Calor <br/> na Produção
             </h4>
             <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
               Especialmente importante para o Nordeste. Dicas para amenizar o estresse térmico.
             </p>
+
+            {/* Informações detalhadas exibidas ao clicar */}
+            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${cardAberto === 3 ? 'max-h-[300px] opacity-100 mt-4 pt-4 border-t border-black/10' : 'max-h-0 opacity-0'}`}>
+              <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
+                O estresse por calor diminui o apetite da ovelha e pode derrubar a produção de leite em até 30%. No Nordeste brasileiro, mantenha bebedouros sempre à sombra, adicione árvores nos pastos para sombra natural e evite movimentar o rebanho nas horas mais quentes do dia.
+              </p>
+            </div>
+
+            <span className="absolute bottom-3 right-6 text-[10px] md:text-xs font-bold text-black/50">
+              {cardAberto === 3 ? "Clique para fechar ▲" : "Clique para ler mais ▼"}
+            </span>
           </div>
 
         </div>
