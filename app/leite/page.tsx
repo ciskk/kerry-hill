@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import CardExpansivel from "@/components/CardExpansivel";
 
 export default function Leite() {
   const cardsRef = useRef<HTMLDivElement | null>(null);
@@ -9,7 +10,13 @@ export default function Leite() {
   // Estado para controlar qual dos três cards inferiores está aberto/expandido
   const [cardAberto, setCardAberto] = useState<number | null>(null);
 
+  // Função para alternar o card aberto (abre se fechado, fecha se aberto ou se outro for clicado)
+  const alternarCard = (id: number) => {
+    setCardAberto((prev) => (prev === id ? null : id));
+  };
+
   useEffect(() => {
+    const currentCardsRef = cardsRef.current;
     // Observador para ativar a animação de opacidade dos cards ao entrar na tela
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -20,12 +27,12 @@ export default function Leite() {
       { threshold: 0.15 }
     );
 
-    if (cardsRef.current) {
-      observer.observe(cardsRef.current);
+    if (currentCardsRef) {
+      observer.observe(currentCardsRef);
     }
 
     return () => {
-      if (cardsRef.current) observer.unobserve(cardsRef.current);
+      if (currentCardsRef) observer.unobserve(currentCardsRef);
     };
   }, []);
 
@@ -153,29 +160,24 @@ export default function Leite() {
         >
           
           {/* Card 1 */}
-          <div 
-            onClick={() => setCardAberto(cardAberto === 1 ? null : 1)}
-            className={`bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px]
-              ${cardAberto === 1 ? 'border-[#D03C7A]' : 'border-transparent'}`}
-          >
-            <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
-              Períodos Críticos <br/> da Lactação
-            </h4>
-            <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
-              O que fazer nas fases em que a ovelha precisa de mais nutrientes.
-            </p>
-            
-            {/* Informações detalhadas exibidas ao clicar */}
-            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${cardAberto === 1 ? 'max-h-[300px] opacity-100 mt-4 pt-4 border-t border-black/10' : 'max-h-0 opacity-0'}`}>
-              <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
-                O terço inicial da lactação (primeiras 6 semanas) é a fase de pico de produção de leite. Como as ovelhas consomem menos energia do que gastam nesse período, é indispensável fornecer volumoso de altíssima qualidade e suplementar com ração concentrada para evitar a perda de peso excessiva e distúrbios como a cetose.
+          <CardExpansivel
+            titulo={
+              <>
+                Períodos Críticos <br /> da Lactação
+              </>
+            }
+            resumo={
+              <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
+                O que fazer nas fases em que a ovelha precisa de mais nutrientes.
               </p>
-            </div>
-            
-            <span className="absolute bottom-3 right-6 text-[10px] md:text-xs font-bold text-black/50">
-              {cardAberto === 1 ? "Clique para fechar ▲" : "Clique para ler mais ▼"}
-            </span>
-          </div>
+            }
+            aberto={cardAberto === 1}
+            onAlternar={() => alternarCard(1)}
+          >
+            <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
+              O terço inicial da lactação (primeiras 6 semanas) é a fase de pico de produção de leite. Como as ovelhas consomem menos energia do que gastam nesse período, é indispensável fornecer volumoso de altíssima qualidade e suplementar com ração concentrada para evitar a perda de peso excessiva e distúrbios como a cetose.
+            </p>
+          </CardExpansivel>
 
           {/* Estrela Separadora 1 */}
           <div className="hidden md:flex items-center justify-center w-12 shrink-0">
@@ -184,32 +186,27 @@ export default function Leite() {
           </div>
 
           {/* Card 2 */}
-          <div 
-            onClick={() => setCardAberto(cardAberto === 2 ? null : 2)}
-            className={`bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px]
-              ${cardAberto === 2 ? 'border-[#D03C7A]' : 'border-transparent'}`}
+          <CardExpansivel
+            titulo={
+              <>
+                Indicadores que o <br /> Criador Deve Acompanhar
+              </>
+            }
+            resumo={
+              <ul className="text-black/80 text-sm md:text-base leading-relaxed font-medium list-disc pl-5 space-y-1">
+                <li>Produção diária</li>
+                <li>Consumo de água</li>
+                <li>Condição corporal</li>
+                <li>Saúde da glândula mamária</li>
+              </ul>
+            }
+            aberto={cardAberto === 2}
+            onAlternar={() => alternarCard(2)}
           >
-            <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
-              Indicadores que o <br/> Criador Deve Acompanhar
-            </h4>
-            <ul className="text-black/80 text-sm md:text-base leading-relaxed font-medium list-disc pl-5 space-y-1">
-              <li>Produção diária</li>
-              <li>Consumo de água</li>
-              <li>Condição corporal</li>
-              <li>Saúde da glândula mamária</li>
-            </ul>
-
-            {/* Informações detalhadas exibidas ao clicar */}
-            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${cardAberto === 2 ? 'max-h-[300px] opacity-100 mt-4 pt-4 border-t border-black/10' : 'max-h-0 opacity-0'}`}>
-              <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
-                Anote as variações diárias! Quedas repentinas de leite indicam problemas de saúde. Lembre-se que ovelhas lactantes podem beber mais de 10 litros de água por dia. Além disso, faça exames visuais regulares no úbere para identificar mastite subclínica precocemente.
-              </p>
-            </div>
-
-            <span className="absolute bottom-3 right-6 text-[10px] md:text-xs font-bold text-black/50">
-              {cardAberto === 2 ? "Clique para fechar ▲" : "Clique para ler mais ▼"}
-            </span>
-          </div>
+            <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
+              Anote as variações diárias! Quedas repentinas de leite indicam problemas de saúde. Lembre-se que ovelhas lactantes podem beber mais de 10 litros de água por dia. Além disso, faça exames visuais regulares no úbere para identificar mastite subclínica precocemente.
+            </p>
+          </CardExpansivel>
 
           {/* Estrela Separadora 2 */}
           <div className="hidden md:flex items-center justify-center w-12 shrink-0">
@@ -218,29 +215,24 @@ export default function Leite() {
           </div>
 
           {/* Card 3 */}
-          <div 
-            onClick={() => setCardAberto(cardAberto === 3 ? null : 3)}
-            className={`bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px]
-              ${cardAberto === 3 ? 'border-[#D03C7A]' : 'border-transparent'}`}
-          >
-            <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
-              Impacto do Calor <br/> na Produção
-            </h4>
-            <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
-              Especialmente importante para o Nordeste. Dicas para amenizar o estresse térmico.
-            </p>
-
-            {/* Informações detalhadas exibidas ao clicar */}
-            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${cardAberto === 3 ? 'max-h-[300px] opacity-100 mt-4 pt-4 border-t border-black/10' : 'max-h-0 opacity-0'}`}>
-              <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
-                O estresse por calor diminui o apetite da ovelha e pode derrubar a produção de leite em até 30%. No Nordeste brasileiro, mantenha bebedouros sempre à sombra, adicione árvores nos pastos para sombra natural e evite movimentar o rebanho nas horas mais quentes do dia.
+          <CardExpansivel
+            titulo={
+              <>
+                Impacto do Calor <br /> na Produção
+              </>
+            }
+            resumo={
+              <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
+                Especialmente importante para o Nordeste. Dicas para amenizar o estresse térmico.
               </p>
-            </div>
-
-            <span className="absolute bottom-3 right-6 text-[10px] md:text-xs font-bold text-black/50">
-              {cardAberto === 3 ? "Clique para fechar ▲" : "Clique para ler mais ▼"}
-            </span>
-          </div>
+            }
+            aberto={cardAberto === 3}
+            onAlternar={() => alternarCard(3)}
+          >
+            <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
+              O estresse por calor diminui o apetite da ovelha e pode derrubar a produção de leite em até 30%. No Nordeste brasileiro, mantenha bebedouros sempre à sombra, adicione árvores nos pastos para sombra natural e evite movimentar o rebanho nas horas mais quentes do dia.
+            </p>
+          </CardExpansivel>
 
         </div>
 
