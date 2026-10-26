@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CursorPixel from "@/components/CursorPixel";
 import Estrela from "@/components/Estrela";
+import Icone from "@/components/Icone";
 import Title from "@/components/Title";
 
 export default function Calculadora() {
@@ -263,7 +264,8 @@ Gerado na Calculadora Kerry Hill!`;
                       : "bg-rosa text-white hover:bg-rosa-escuro"
                     }`}
                 >
-                  {copiado ? "Copiado! ✨" : "Copiar Relatório 📋"}
+                  <span>{copiado ? "Copiado!" : "Copiar Relatório"}</span>
+                  <Icone nome={copiado ? "check" : "clipboard-list"} className="w-4 h-4" />
                 </button>
 
                 {/* Sticker da Cher acompanhando o card de resultados */}

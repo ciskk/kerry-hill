@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import CursorPixel from "@/components/CursorPixel";
+import Icone from "@/components/Icone";
 import TituloDuplo from "@/components/TituloDuplo";
 import { opcoesQuizGenetica } from "@/data/conteudos";
 
@@ -154,8 +155,11 @@ export default function Genetica() {
             <div className="flex items-center justify-center gap-2 mb-2">
               <h4 className="text-xl font-bold text-black">{dados.titulo}</h4>
               {selecionada && (
-                <span className="bg-rosa text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
-                  {lado === "esquerda" ? "Escolhida ✨" : "Escolhida"}
+                <span className="inline-flex items-center gap-1 bg-rosa text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
+                  <span>Escolhida</span>
+                  {lado === "esquerda" && (
+                    <Icone nome="sparkles" className="w-3.5 h-3.5" />
+                  )}
                 </span>
               )}
             </div>
@@ -242,8 +246,9 @@ export default function Genetica() {
                   </div>
                 ) : resultado === "correto" ? (
                   <div className="bg-amarelo-card border-4 border-rosa rounded-3xl p-6 shadow-lg animate-pop-up flex flex-col items-center">
-                    <h3 className="text-2xl font-black text-black leading-tight tracking-tight">
-                      Acertou em cheio! ✨
+                    <h3 className="inline-flex items-center gap-1.5 text-2xl font-black text-black leading-tight tracking-tight">
+                      <span>Acertou em cheio!</span>
+                      <Icone nome="sparkles" className="w-6 h-6 text-rosa" />
                     </h3>
                     <p className="text-sm text-black/85 font-semibold mt-3 leading-snug">
                       Excelente escolha! Para melhorar a produção, o ideal é o animal de Pelo Ralo. Ele possui excelente adaptação térmica, maior imunidade e transmite alta capacidade láctea para as gerações futuras.
@@ -267,9 +272,10 @@ export default function Genetica() {
 
                 <button
                   onClick={handleToggleQuiz}
-                  className="text-xs font-bold text-rosa/80 hover:text-rosa hover:underline focus:ring-1 focus:ring-rosa px-2 py-1 rounded transition-all mt-3"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-rosa/80 hover:text-rosa hover:underline focus:ring-1 focus:ring-rosa px-2 py-1 rounded transition-all mt-3"
                 >
-                  ← Voltar à Explicação
+                  <Icone nome="arrow-left" className="w-3.5 h-3.5" />
+                  <span>Voltar à Explicação</span>
                 </button>
               </div>
             )}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Icone from "@/components/Icone";
 import { linksNavegacao } from "@/data/conteudos";
 
 export default function Navbar() {
@@ -41,13 +42,7 @@ export default function Navbar() {
           className="md:hidden flex items-center gap-2 bg-papel-nav/90 hover:bg-papel-nav text-rosa font-bold text-sm px-3.5 py-2 rounded-full border border-rosa/20 shadow-sm active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-rosa"
         >
           <span>{menuAberto ? "Fechar" : "Menu"}</span>
-          <span
-            className={`inline-block transition-transform duration-300 text-base leading-none ${
-              menuAberto ? "rotate-45" : "rotate-0"
-            }`}
-          >
-            ✦
-          </span>
+          <Icone nome={menuAberto ? "x" : "menu"} className="w-4 h-4" />
         </button>
 
         {/* Links de Navegação Desktop com Animações Pop e Ativas */}

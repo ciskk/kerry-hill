@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Icone from "@/components/Icone";
 
 interface CardProps {
   title: string;
@@ -26,7 +27,8 @@ export default function Card({ title, children, hoverEffect = true, href }: Card
 
       {href && (
         <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-rosa group-hover:translate-x-1 transition-transform">
-          Explorar página <span aria-hidden="true">→</span>
+          <span>Explorar página</span>
+          <Icone nome="arrow-right" className="w-4 h-4" />
         </span>
       )}
       

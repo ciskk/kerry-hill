@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CursorPixel from "@/components/CursorPixel";
 import Estrela from "@/components/Estrela";
+import Icone from "@/components/Icone";
 import TituloDuplo from "@/components/TituloDuplo";
 import { perguntasGuia, topicosFotosGuia } from "@/data/conteudos";
 
@@ -84,9 +85,10 @@ export default function Guia() {
                     >
                       {item.pergunta}
                     </p>
-                    <span className="text-rosa font-bold shrink-0">
-                      {isOpen ? "▲" : "▼"}
-                    </span>
+                    <Icone
+                      nome={isOpen ? "chevron-up" : "chevron-down"}
+                      className="w-5 h-5 text-rosa"
+                    />
                   </div>
 
                   {/* Conteúdo Expansível com Transição de Altura */}
@@ -141,8 +143,12 @@ export default function Guia() {
                   <h4 className="text-rosa text-[1.35rem] font-bold tracking-tight group-hover:text-rosa-escuro transition-colors">
                     {item.titulo}
                   </h4>
-                  <span className="text-xs font-bold text-rosa/75 bg-papel px-3 py-1 rounded-full border border-rosa/20">
-                    {selecionada ? "Fechar dica ▲" : "Clique para ler ▼"}
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-rosa/75 bg-papel px-3 py-1 rounded-full border border-rosa/20">
+                    <span>{selecionada ? "Fechar dica" : "Clique para ler"}</span>
+                    <Icone
+                      nome={selecionada ? "chevron-up" : "chevron-down"}
+                      className="w-3.5 h-3.5"
+                    />
                   </span>
                 </button>
               );
@@ -167,9 +173,10 @@ export default function Guia() {
                 <button
                   type="button"
                   onClick={() => setFotoAberta(null)}
-                  className="text-xs font-bold text-rosa hover:underline px-2 py-1 rounded"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-rosa hover:underline px-2 py-1 rounded"
                 >
-                  Fechar ✕
+                  <span>Fechar</span>
+                  <Icone nome="x" className="w-3.5 h-3.5" />
                 </button>
               </div>
               <p className="text-black/85 text-sm md:text-base leading-relaxed font-medium border-t border-rosa/15 pt-3 mt-2">

@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useId } from "react";
+import Icone from "@/components/Icone";
 
 export interface CardExpansivelProps {
   titulo: ReactNode;
@@ -56,8 +57,9 @@ export default function CardExpansivel({
         {children}
       </div>
 
-      <span className="absolute bottom-3 right-6 text-[10px] md:text-xs font-bold text-black/50">
-        {aberto ? "Clique para fechar ▲" : "Clique para ler mais ▼"}
+      <span className="absolute bottom-3 right-6 inline-flex items-center gap-1 text-[10px] md:text-xs font-bold text-black/50">
+        <span>{aberto ? "Clique para fechar" : "Clique para ler mais"}</span>
+        <Icone nome={aberto ? "chevron-up" : "chevron-down"} className="w-3.5 h-3.5" />
       </span>
     </div>
   );

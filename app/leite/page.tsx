@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import CardExpansivel from "@/components/CardExpansivel";
 import Estrela from "@/components/Estrela";
+import Icone from "@/components/Icone";
 import TituloDuplo from "@/components/TituloDuplo";
 import { dadosGarrafasLeite } from "@/data/conteudos";
 
@@ -81,8 +82,9 @@ export default function Leite() {
 
           {/* BLOCO DIREITO (55%): Garrafas Interativas + Balão Explicativo */}
           <div className="flex flex-col items-center xl:items-end w-full xl:w-[55%] z-10 mt-2 xl:mt-0">
-            <p className="text-rosa text-xs md:text-sm font-bold mb-2 select-none">
-              clique em cada garrafa para comparar os dados ✨
+            <p className="inline-flex items-center gap-1.5 text-rosa text-xs md:text-sm font-bold mb-2 select-none">
+              <span>clique em cada garrafa para comparar os dados</span>
+              <Icone nome="sparkles" className="w-4 h-4" />
             </p>
 
             <div className="flex flex-row justify-center xl:justify-end items-end gap-3 sm:gap-5 md:gap-8 w-full h-[300px] sm:h-[380px] md:h-[490px] lg:h-[530px]">
@@ -120,8 +122,12 @@ export default function Leite() {
                       <p className="text-rosa text-[9.5px] sm:text-xs md:text-[13px] font-bold mt-0.5 sm:mt-1 leading-tight">
                         {garrafa.rotulo}
                       </p>
-                      <span className="text-[8.5px] sm:text-[10px] md:text-[11px] font-bold text-rosa/75 mt-0.5 sm:mt-1">
-                        {selecionada ? "▲ aberto" : "▼ ler"}
+                      <span className="inline-flex items-center gap-0.5 text-[8.5px] sm:text-[10px] md:text-[11px] font-bold text-rosa/75 mt-0.5 sm:mt-1">
+                        <Icone
+                          nome={selecionada ? "chevron-up" : "chevron-down"}
+                          className="w-3 h-3"
+                        />
+                        <span>{selecionada ? "aberto" : "ler"}</span>
                       </span>
                     </div>
                   </button>
@@ -151,9 +157,10 @@ export default function Leite() {
                   <button
                     type="button"
                     onClick={() => setGarrafaAtiva(null)}
-                    className="text-xs font-bold text-rosa hover:underline px-2 py-0.5 rounded shrink-0"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-rosa hover:underline px-2 py-0.5 rounded shrink-0"
                   >
-                    Fechar ✕
+                    <span>Fechar</span>
+                    <Icone nome="x" className="w-3.5 h-3.5" />
                   </button>
                 </div>
                 <p className="text-black/85 text-sm md:text-base leading-relaxed font-medium">
