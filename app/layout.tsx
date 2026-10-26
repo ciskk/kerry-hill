@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -45,6 +46,9 @@ export default function RootLayout({
 
         {/* CONTEÚDO DA PÁGINA */}
         <main className="flex-1 w-full flex flex-col">{children}</main>
+
+        {/* RODAPÉ DO PROJETO ESCOLAR */}
+        <Footer />
       </body>
     </html>
   );
