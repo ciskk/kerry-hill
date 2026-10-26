@@ -32,8 +32,8 @@ export default function CardExpansivel({
           onAlternar();
         }
       }}
-      className={`bg-[#E2C337] rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#D03C7A] focus-visible:ring-offset-2 ${
-        aberto ? "border-[#D03C7A]" : "border-transparent"
+      className={`bg-amarelo-card rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px] shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-rosa focus-visible:ring-offset-2 ${
+        aberto ? "border-rosa" : "border-transparent"
       }`}
     >
       <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">

@@ -8,7 +8,7 @@ interface CardProps {
 
 export default function Card({ title, children, hoverEffect = true }: CardProps) {
   return (
-    <div className={`bg-[#E5CE82] rounded-[3rem] p-10 min-h-[300px] flex flex-col relative shadow-md transition-all duration-300
+    <div className={`bg-amarelo-card rounded-[3rem] p-8 md:p-10 min-h-[280px] md:min-h-[300px] flex flex-col relative shadow-md transition-all duration-300
       ${hoverEffect ? "hover:-translate-y-2 cursor-pointer" : ""}
     `}>
       <h4 className="text-3xl font-bold text-black mb-4 tracking-wide">{title}</h4>

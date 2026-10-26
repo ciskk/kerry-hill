@@ -1,1 +1,83 @@
 @import "tailwindcss";
+
+@theme inline {
+  --color-rosa: #D03C7A;
+  --color-rosa-suave: #C24984;
+  --color-rosa-escuro: #b03065;
+  --color-amarelo: #E2C337;
+  --color-amarelo-card: #E5CE82;
+  --color-amarelo-painel: #E6D48A;
+  --color-creme: #EAE7D6;
+  --color-creme-home: #E2E4CE;
+  --color-papel: #F4F5EB;
+  --color-papel-nav: #F1F3E9;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-titulo), Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Animações globais de alto desempenho (60 FPS) */
+@keyframes slideLeft {
+  0% { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleUp {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideRightBounce {
+  0% { opacity: 0; transform: translateX(80px); }
+  70% { transform: translateX(-15px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-left {
+  animation: slideLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-right-bounce {
+  animation: slideRightBounce 1s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-pop-up {
+  animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.6s ease-out forwards;
+}
