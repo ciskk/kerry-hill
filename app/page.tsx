@@ -144,21 +144,21 @@ export default function Home() {
           
           <div className={`transition-all duration-700 ease-out transform delay-100
             ${destaquesVisivel ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
-            <Card title="Genética">
+            <Card title="Genética" href="/genetica">
               Selecione os melhores animais. Aprenda como a genética pode aumentar a produtividade, a resistência e a qualidade do rebanho.
             </Card>
           </div>
 
           <div className={`transition-all duration-700 ease-out transform delay-300
             ${destaquesVisivel ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
-            <Card title="Produção de Leite">
+            <Card title="Produção de Leite" href="/leite">
               Mais leite, mais resultados. Conheça os fatores que influenciam a produção e descubra práticas para melhorar o desempenho das ovelhas.
             </Card>
           </div>
 
           <div className={`transition-all duration-700 ease-out transform delay-500
             ${destaquesVisivel ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
-            <Card title="Guia do Criador">
+            <Card title="Guia do Criador" href="/guia">
               Dicas para o dia a dia. Encontre orientações práticas sobre manejo, alimentação, reprodução e cuidados com o rebanho.
             </Card>
           </div>
