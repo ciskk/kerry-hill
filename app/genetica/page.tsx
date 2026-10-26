@@ -120,7 +120,7 @@ export default function Genetica() {
   }, [resultado]);
 
   return (
-    <div className="w-full bg-[#EAE7D6] text-[#D03C7A] overflow-x-hidden min-h-screen font-sans pb-24 relative">
+    <div className="w-full bg-creme text-rosa overflow-x-hidden min-h-screen font-sans pb-20 relative">
       
       {/* Canvas para a Chuva de Confetes */}
       {resultado === "correto" && (
@@ -130,28 +130,17 @@ export default function Genetica() {
         />
       )}
 
-      {/* Estilos CSS Nativos adicionais */}
-      <style>{`
-        @keyframes popUp {
-          0% { transform: scale(0.9); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-        .animate-pop-up {
-          animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
-        }
-      `}</style>
-
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 pt-24 md:pt-36">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 pt-10 md:pt-20">
         
         {/* =========================================
             PARTE SUPERIOR: Título da Seção
             ========================================= */}
-        <div className="flex flex-col items-center justify-center w-full z-20 mb-12 md:mb-16 select-none animate-[fadeIn_0.6s_ease-out_forwards]">
-          <h1 className="text-[4.5rem] md:text-[7rem] font-bold text-[#D03C7A] leading-[0.8] tracking-tighter text-center">
+        <div className="flex flex-col items-center justify-center w-full z-20 mb-8 md:mb-14 select-none animate-fade-in">
+          <h1 className="text-[3.1rem] sm:text-[4.5rem] md:text-[7rem] font-bold text-rosa leading-[0.85] md:leading-[0.8] tracking-tighter text-center">
             Melhoramento
           </h1>
           <span 
-            className="text-[4.5rem] md:text-[6.5rem] font-serif text-[#E2C337] italic leading-[0.8] -mt-4 md:-mt-8 z-10 text-center"
+            className="text-[3rem] sm:text-[4.5rem] md:text-[6.5rem] font-serif text-amarelo italic leading-[0.85] -mt-2 md:-mt-6 z-10 text-center"
             style={{ textShadow: "2px 2px 0px #D03C7A, -1px -1px 0px #D03C7A, 1px -1px 0px #D03C7A, -1px 1px 0px #D03C7A" }}
           >
             Genético
@@ -162,15 +151,15 @@ export default function Genetica() {
             PARTE INFERIOR: Painel de Cards Dinâmicos
             ========================================= */}
         <div 
-          className={`flex flex-col md:flex-row items-stretch justify-center gap-6 md:gap-8 w-full mt-8 transition-all duration-300
+          className={`flex flex-col md:flex-row items-stretch justify-center gap-6 md:gap-8 w-full mt-6 transition-all duration-300
             ${transitando ? "opacity-0 translate-y-2 scale-[0.99]" : "opacity-100 translate-y-0 scale-100"}`}
         >
           
           {/* CARD DA ESQUERDA (Ovelha de Pelo Ralo / Opção Correta) */}
-          <section className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[380px] transition-all duration-300
+          <section className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[360px] md:min-h-[380px] transition-all duration-300
             ${mostrarQuiz 
-              ? "bg-[#E6D48A] border-4 border-dashed border-[#D03C7A]/20 cursor-pointer hover:scale-105 hover:bg-[#E6D48A]/90 hover:border-solid hover:border-[#D03C7A]" 
-              : "bg-[#E6D48A]/80"
+              ? "bg-amarelo-card border-4 border-dashed border-rosa/20 cursor-pointer hover:scale-105 hover:bg-amarelo-card/90 hover:border-solid hover:border-rosa" 
+              : "bg-amarelo-card"
             }`}
             onClick={() => mostrarQuiz && handleEscolha("esquerda")}
           >
@@ -260,10 +249,10 @@ export default function Genetica() {
           </div>
 
           {/* CARD DA DIREITA (Ovelha de Pelo Longo / Opção Incorreta) */}
-          <section className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[380px] transition-all duration-300
+          <section className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[360px] md:min-h-[380px] transition-all duration-300
             ${mostrarQuiz 
-              ? "bg-[#E6D48A] border-4 border-dashed border-[#D03C7A]/20 cursor-pointer hover:scale-105 hover:bg-[#E6D48A]/90 hover:border-solid hover:border-[#D03C7A]" 
-              : "bg-[#E6D48A]/80"
+              ? "bg-amarelo-card border-4 border-dashed border-rosa/20 cursor-pointer hover:scale-105 hover:bg-amarelo-card/90 hover:border-solid hover:border-rosa" 
+              : "bg-amarelo-card"
             }`}
             onClick={() => mostrarQuiz && handleEscolha("direita")}
           >

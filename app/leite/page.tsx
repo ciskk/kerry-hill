@@ -37,26 +37,26 @@ export default function Leite() {
   }, []);
 
   return (
-    <div className="w-full bg-[#EAE7D6] text-[#D03C7A] overflow-x-hidden min-h-screen font-sans pb-32 pt-24 md:pt-36">
+    <div className="w-full bg-creme text-rosa overflow-x-hidden min-h-screen font-sans pb-24 pt-10 md:pt-20">
       
       {/* Contêiner Principal - Limitando a largura para telas muito grandes e centralizando */}
       <div className="max-w-[1300px] w-full mx-auto px-6 md:px-12">
         
         {/* =========================================
-            SECÇÃO SUPERIOR: Título, Espelho e Garrafas
+            SEÇÃO SUPERIOR: Título, Espelho e Garrafas
             ========================================= */}
-        <div className="flex flex-col xl:flex-row justify-between items-start gap-12 xl:gap-8 relative w-full">
+        <div className="flex flex-col xl:flex-row justify-between items-center xl:items-start gap-8 xl:gap-8 relative w-full">
           
           {/* BLOCO ESQUERDO (45%): Título + Espelho */}
-          <div className="flex flex-col relative w-full xl:w-[45%] z-20">
+          <div className="flex flex-col items-center xl:items-start relative w-full xl:w-[45%] z-20">
             
-            {/* Título (Tamanhos reajustados para ficarem mais proporcionais) */}
-            <div className="relative z-30 flex flex-col pt-4 md:pt-8">
-              <h2 className="text-[3.8rem] md:text-[5.2rem] lg:text-[6rem] font-black text-[#D03C7A] leading-[0.8] tracking-tighter">
+            {/* Título (Sem cobrir a cedilha nem embolar no celular) */}
+            <div className="relative z-30 flex flex-col pt-2 md:pt-4 text-center xl:text-left select-none">
+              <h1 className="text-[3.6rem] sm:text-[4.6rem] md:text-[5.5rem] lg:text-[6.2rem] font-black text-rosa leading-[0.85] tracking-tighter">
                 Produção
-              </h2>
+              </h1>
               <span 
-                className="absolute top-[65%] md:top-[70%] left-[25%] md:left-[35%] text-[2.8rem] md:text-[4rem] lg:text-[5rem] font-serif text-[#E2C337] italic leading-none z-10"
+                className="text-[2.8rem] sm:text-[3.6rem] md:text-[4.4rem] lg:text-[5rem] font-serif text-amarelo italic leading-[0.85] ml-6 sm:ml-12 xl:ml-24 mt-1 md:mt-0 z-10"
                 style={{ textShadow: "2px 2px 0px #D03C7A, -2px -2px 0px #D03C7A, 2px -2px 0px #D03C7A, -2px 2px 0px #D03C7A" }}
               >
                 de Leite
@@ -64,9 +64,9 @@ export default function Leite() {
             </div>
 
             {/* Espelho (Tamanho reduzido e margens reorganizadas) */}
-            <div className="relative mt-12 md:mt-8 ml-0 md:ml-12 flex justify-center md:justify-start z-20 w-full max-w-[260px] md:max-w-[340px]">
+            <div className="relative mt-6 md:mt-6 ml-0 xl:ml-12 flex justify-center xl:justify-start z-20 w-full max-w-[250px] md:max-w-[330px]">
               {/* Estrela de Fundo */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] z-0 pointer-events-none">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[125%] h-[125%] md:w-[140%] md:h-[140%] z-0 pointer-events-none">
                 <img 
                   src="/assets/star.png" 
                   alt="Estrela Decorativa" 
@@ -84,7 +84,7 @@ export default function Leite() {
           </div>
 
           {/* BLOCO DIREITO (55%): Garrafas */}
-          <div className="flex flex-row justify-center xl:justify-end items-end gap-4 md:gap-8 w-full xl:w-[55%] z-10 h-[450px] md:h-[600px] mt-12 xl:mt-0">
+          <div className="flex flex-row justify-center xl:justify-end items-end gap-4 md:gap-8 w-full xl:w-[55%] z-10 h-[270px] sm:h-[380px] md:h-[520px] lg:h-[580px] mt-4 xl:mt-0">
             
             {/* GARRAFA 1: Interativa (45%) */}
             <div className="relative group w-[110px] md:w-[170px] lg:w-[200px] h-full cursor-pointer flex flex-col justify-end">
@@ -151,11 +151,11 @@ export default function Leite() {
         </div>
 
         {/* =========================================
-            SECÇÃO INFERIOR: Cards Amarelos Interativos
+            SEÇÃO INFERIOR: Cards Amarelos Interativos
             ========================================= */}
         <div 
           ref={cardsRef}
-          className={`flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 md:gap-4 w-full mt-24 xl:mt-32 transition-opacity duration-1000 ease-in-out relative z-30
+          className={`flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 md:gap-4 w-full mt-16 xl:mt-24 transition-opacity duration-1000 ease-in-out relative z-30
             ${cardsVisiveis ? 'opacity-100' : 'opacity-0'}`}
         >
           
