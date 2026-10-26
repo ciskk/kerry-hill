@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import CursorPixel from "@/components/CursorPixel";
+import Estrela from "@/components/Estrela";
 import Title from "@/components/Title";
 
 export default function Calculadora() {
@@ -102,11 +104,10 @@ Gerado na Calculadora Kerry Hill!`;
             
             <form onSubmit={handleCalcular} noValidate className="bg-amarelo-card rounded-[2.5rem] p-6 sm:p-8 md:p-10 shadow-sm flex flex-col gap-6 relative">
               
-              <div className="absolute top-1/2 -right-8 w-10 h-10 md:w-12 md:h-12 z-30 pointer-events-none animate-pulse hidden md:block">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform -rotate-45">
-                  <path d="M4 0L4 16L8 12L11.5 19L14 18L10.5 11L16 11L4 0Z" fill="white" stroke="black" strokeWidth="1.5" strokeLinejoin="miter"/>
-                </svg>
-              </div>
+              <CursorPixel
+                className="absolute top-1/2 -right-8 w-10 h-10 md:w-12 md:h-12 z-30 pointer-events-none animate-pulse hidden md:block"
+                svgClassName="transform -rotate-45"
+              />
 
               {erro && (
                 <div role="alert" className="bg-papel border-2 border-dashed border-rosa text-rosa p-4 rounded-2xl text-sm font-bold">
@@ -196,10 +197,13 @@ Gerado na Calculadora Kerry Hill!`;
             
             {!mostrarResultados ? (
               <div className="relative flex justify-center items-center w-full h-full animate-fade-in-right">
-                <div className="absolute z-0 w-[230px] h-[230px] md:w-[350px] md:h-[350px] flex justify-center items-center -mr-4 md:-mr-16 mt-8">
-                  <svg viewBox="0 0 100 100" aria-hidden="true" className="w-full h-full fill-rosa opacity-90 animate-[spin_30s_linear_infinite]">
-                    <polygon points="50,0 60,35 95,20 65,45 100,65 60,60 50,100 40,60 0,65 35,45 5,20 40,35" />
-                  </svg>
+                <div className="absolute z-0 w-[230px] h-[230px] md:w-[350px] md:h-[350px] flex justify-center items-center -mr-4 md:-mr-16 mt-8 pointer-events-none">
+                  <Estrela
+                    ariaHidden
+                    filtroRosa
+                    velocidadeGiro="lenta"
+                    className="w-full h-full opacity-90"
+                  />
                 </div>
 
                 <img 

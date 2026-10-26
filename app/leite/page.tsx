@@ -2,45 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import CardExpansivel from "@/components/CardExpansivel";
+import Estrela from "@/components/Estrela";
+import TituloDuplo from "@/components/TituloDuplo";
+import { dadosGarrafasLeite } from "@/data/conteudos";
 
 export default function Leite() {
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const [cardsVisiveis, setCardsVisiveis] = useState(false);
-  
+
   // Estado para controlar qual dos três cards inferiores está aberto/expandido
   const [cardAberto, setCardAberto] = useState<number | null>(null);
   // Estado para controlar qual garrafa está selecionada (começa na primeira para mostrar o detalhe)
   const [garrafaAtiva, setGarrafaAtiva] = useState<number | null>(0);
-
-  const dadosGarrafas = [
-    {
-      percentual: "45%",
-      rotulo: "Crescimento da produção",
-      alturaBase: "h-[36%] sm:h-[32%]",
-      alturaAtiva: "h-[41%] sm:h-[38%]",
-      titulo: "45% de crescimento na produção nacional",
-      descricao:
-        "Nos últimos anos, a produção de leite de ovelha no Brasil apresentou um crescimento de aproximadamente 45%, impulsionado pelo interesse dos consumidores por produtos diferenciados e de maior valor agregado, como queijos artesanais, iogurtes e doces finos.",
-    },
-    {
-      percentual: "70%",
-      rotulo: "Beneficiado na fazenda",
-      alturaBase: "h-[46%] sm:h-[44%]",
-      alturaAtiva: "h-[51%] sm:h-[50%]",
-      titulo: "70% do leite é processado na própria fazenda",
-      descricao:
-        "Cerca de 70% do leite ovino brasileiro é transformado dentro da própria propriedade em queijos maturados, ricotas e iogurtes artesanais, gerando maior renda direta para o criador e preservando o frescor do leite.",
-    },
-    {
-      percentual: "13%",
-      rotulo: "Sólidos totais no leite",
-      alturaBase: "h-[30%] sm:h-[24%]",
-      alturaAtiva: "h-[35%] sm:h-[29%]",
-      titulo: "13% a 19% de sólidos totais no leite ovino",
-      descricao:
-        "O leite de ovelha tem quase o dobro de sólidos (gordura, proteínas e minerais) em comparação ao leite bovino. Na prática, bastam 4 a 5 litros de leite de ovelha para produzir 1 kg de queijo (contra 10 litros no leite de vaca).",
-    },
-  ];
 
   // Função para alternar o card aberto (abre se fechado, fecha se aberto ou se outro for clicado)
   const alternarCard = (id: number) => {
@@ -70,43 +43,34 @@ export default function Leite() {
 
   return (
     <div className="w-full bg-creme text-rosa overflow-x-hidden min-h-screen font-sans pb-24 pt-10 md:pt-20">
-      
       {/* Contêiner Principal - Limitando a largura para telas muito grandes e centralizando */}
       <div className="max-w-[1300px] w-full mx-auto px-6 md:px-12">
-        
         {/* =========================================
             SEÇÃO SUPERIOR: Título, Espelho e Garrafas
             ========================================= */}
         <div className="flex flex-col xl:flex-row justify-between items-center xl:items-start gap-8 xl:gap-8 relative w-full">
-          
           {/* BLOCO ESQUERDO (45%): Título + Espelho */}
           <div className="flex flex-col items-center xl:items-start relative w-full xl:w-[45%] z-20">
-            
-            {/* Título (Sem cobrir a cedilha nem embolar no celular) */}
-            <div className="relative z-30 flex flex-col pt-2 md:pt-4 text-center xl:text-left select-none">
-              <h1 className="text-[3.6rem] sm:text-[4.6rem] md:text-[5.5rem] lg:text-[6.2rem] font-black text-rosa leading-[0.85] tracking-tighter">
-                Produção
-              </h1>
-              <span 
-                className="text-[2.8rem] sm:text-[3.6rem] md:text-[4.4rem] lg:text-[5rem] font-serif text-amarelo italic leading-[0.85] ml-6 sm:ml-12 xl:ml-24 mt-1 md:mt-0 z-10"
-                style={{ textShadow: "2px 2px 0px #D03C7A, -2px -2px 0px #D03C7A, 2px -2px 0px #D03C7A, -2px 2px 0px #D03C7A" }}
-              >
-                de Leite
-              </span>
-            </div>
+            <TituloDuplo
+              principal="Produção"
+              subtitulo="de Leite"
+              as="h1"
+              className="relative z-30 flex flex-col pt-2 md:pt-4 text-center xl:text-left select-none"
+              tituloClassName="text-[3.6rem] sm:text-[4.6rem] md:text-[5.5rem] lg:text-[6.2rem] font-black text-rosa leading-[0.85] tracking-tighter"
+              subtituloClassName="text-[2.8rem] sm:text-[3.6rem] md:text-[4.4rem] lg:text-[5rem] font-serif text-amarelo italic leading-[0.85] ml-6 sm:ml-12 xl:ml-24 mt-1 md:mt-0 z-10"
+            />
 
-            {/* Espelho (Tamanho reduzido e margens reorganizadas) */}
+            {/* Espelho com Estrela Giratória de Fundo */}
             <div className="relative mt-6 md:mt-6 ml-0 xl:ml-12 flex justify-center xl:justify-start z-20 w-full max-w-[250px] md:max-w-[330px]">
-              {/* Estrela de Fundo */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[125%] h-[125%] md:w-[140%] md:h-[140%] z-0 pointer-events-none">
-                <img 
-                  src="/assets/star.png" 
-                  alt="Estrela Decorativa" 
-                  className="object-contain w-full h-full opacity-90 animate-[spin_30s_linear_infinite]"
-                  style={{ filter: "brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1900%) hue-rotate(314deg) brightness(91%) contrast(98%)" }}
+                <Estrela
+                  alt="Estrela Decorativa"
+                  filtroRosa
+                  velocidadeGiro="lenta"
+                  className="w-full h-full opacity-90"
                 />
               </div>
-              
+
               <img
                 src="/assets/leite-espelho.png"
                 alt="As meninas no espelho"
@@ -122,7 +86,7 @@ export default function Leite() {
             </p>
 
             <div className="flex flex-row justify-center xl:justify-end items-end gap-3 sm:gap-5 md:gap-8 w-full h-[300px] sm:h-[380px] md:h-[490px] lg:h-[530px]">
-              {dadosGarrafas.map((garrafa, idx) => {
+              {dadosGarrafasLeite.map((garrafa, idx) => {
                 const selecionada = garrafaAtiva === idx;
                 return (
                   <button
@@ -174,18 +138,14 @@ export default function Leite() {
               >
                 <div className="flex items-center justify-between gap-3 mb-1.5">
                   <div className="flex items-center gap-2">
-                    <img
-                      src="/assets/star.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="w-5 h-5 object-contain"
-                      style={{
-                        filter:
-                          "brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1900%) hue-rotate(314deg) brightness(91%) contrast(98%)",
-                      }}
+                    <Estrela
+                      ariaHidden
+                      filtroRosa
+                      velocidadeGiro="parada"
+                      className="w-5 h-5"
                     />
                     <h4 className="text-base md:text-lg font-extrabold text-rosa">
-                      {dadosGarrafas[garrafaAtiva].titulo}
+                      {dadosGarrafasLeite[garrafaAtiva].titulo}
                     </h4>
                   </div>
                   <button
@@ -197,7 +157,7 @@ export default function Leite() {
                   </button>
                 </div>
                 <p className="text-black/85 text-sm md:text-base leading-relaxed font-medium">
-                  {dadosGarrafas[garrafaAtiva].descricao}
+                  {dadosGarrafasLeite[garrafaAtiva].descricao}
                 </p>
               </div>
             )}
@@ -207,12 +167,12 @@ export default function Leite() {
         {/* =========================================
             SEÇÃO INFERIOR: Cards Amarelos Interativos
             ========================================= */}
-        <div 
+        <div
           ref={cardsRef}
-          className={`flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 md:gap-4 w-full mt-16 xl:mt-24 transition-opacity duration-1000 ease-in-out relative z-30
-            ${cardsVisiveis ? 'opacity-100' : 'opacity-0'}`}
+          className={`flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 md:gap-4 w-full mt-16 xl:mt-24 transition-opacity duration-1000 ease-in-out relative z-30 ${
+            cardsVisiveis ? "opacity-100" : "opacity-0"
+          }`}
         >
-          
           {/* Card 1 */}
           <CardExpansivel
             titulo={
@@ -235,8 +195,7 @@ export default function Leite() {
 
           {/* Estrela Separadora 1 */}
           <div className="hidden md:flex items-center justify-center w-12 shrink-0">
-            <img src="/assets/star.png" alt="Estrela" className="w-8 h-8 md:w-10 md:h-10 animate-[spin_10s_linear_infinite]" 
-                 style={{ filter: "brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1900%) hue-rotate(314deg) brightness(91%) contrast(98%)" }}/>
+            <Estrela filtroRosa className="w-8 h-8 md:w-10 md:h-10" />
           </div>
 
           {/* Card 2 */}
@@ -264,8 +223,7 @@ export default function Leite() {
 
           {/* Estrela Separadora 2 */}
           <div className="hidden md:flex items-center justify-center w-12 shrink-0">
-            <img src="/assets/star.png" alt="Estrela" className="w-8 h-8 md:w-10 md:h-10 animate-[spin_10s_linear_infinite]"
-                 style={{ filter: "brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1900%) hue-rotate(314deg) brightness(91%) contrast(98%)" }} />
+            <Estrela filtroRosa className="w-8 h-8 md:w-10 md:h-10" />
           </div>
 
           {/* Card 3 */}
@@ -287,9 +245,7 @@ export default function Leite() {
               O estresse por calor diminui o apetite da ovelha e pode derrubar a produção de leite em até 30%. No Nordeste brasileiro, mantenha bebedouros sempre à sombra, adicione árvores nos pastos para sombra natural e evite movimentar o rebanho nas horas mais quentes do dia.
             </p>
           </CardExpansivel>
-
         </div>
-
       </div>
     </div>
   );
