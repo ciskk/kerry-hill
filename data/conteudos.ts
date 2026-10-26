@@ -14,6 +14,7 @@ export const linksNavegacao: LinkNavegacao[] = [
   { href: "/leite", label: "Leite" },
   { href: "/genetica", label: "Genética" },
   { href: "/calculadora", label: "Calculadora" },
+  { href: "/registro", label: "Registro" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -175,3 +176,76 @@ export const opcoesQuizGenetica: Record<"esquerda" | "direita", OpcaoQuizGenetic
     ],
   },
 };
+
+// Dados da aba Registro do Rebanho (/registro)
+export type CategoriaOvelha = "Matriz" | "Reprodutor" | "Cordeiro(a)";
+export type PelagemOvelha = "Pelo Ralo" | "Pelo Longo";
+export type StatusVacina = "Em dia" | "Pendente";
+
+export interface OvelhaRegistrada {
+  id: string;
+  brinco: string;
+  nome: string;
+  categoria: CategoriaOvelha;
+  pelagem: PelagemOvelha;
+  pesoKg: string;
+  producaoLitros: string;
+  vacinacao: StatusVacina;
+  foto: string;
+  observacao: string;
+}
+
+export const fotosOvelhasRegistro = [
+  {
+    src: "/assets/inicio-ovelha-fofa.jpeg",
+    rotulo: "Clássica Kerry Hill",
+  },
+  {
+    src: "/assets/genetica-pelo-ralo.jpg",
+    rotulo: "Linhagem Pelo Ralo",
+  },
+  {
+    src: "/assets/genetica-pelo-longo.jpg",
+    rotulo: "Linhagem Pelo Longo",
+  },
+];
+
+export const rebanhoInicial: OvelhaRegistrada[] = [
+  {
+    id: "kh-001",
+    brinco: "KH-001",
+    nome: "Cher",
+    categoria: "Matriz",
+    pelagem: "Pelo Ralo",
+    pesoKg: "58",
+    producaoLitros: "1,8",
+    vacinacao: "Em dia",
+    foto: "/assets/inicio-ovelha-fofa.jpeg",
+    observacao: "Matriz líder do rebanho, dócil e com parto duplo recente.",
+  },
+  {
+    id: "kh-002",
+    brinco: "KH-002",
+    nome: "Dionne",
+    categoria: "Matriz",
+    pelagem: "Pelo Ralo",
+    pesoKg: "55",
+    producaoLitros: "1,6",
+    vacinacao: "Em dia",
+    foto: "/assets/genetica-pelo-ralo.jpg",
+    observacao: "Excelente adaptação térmica ao clima do Nordeste e leite rico em sólidos.",
+  },
+  {
+    id: "kh-003",
+    brinco: "KH-003",
+    nome: "Tai",
+    categoria: "Cordeiro(a)",
+    pelagem: "Pelo Longo",
+    pesoKg: "26",
+    producaoLitros: "0,0",
+    vacinacao: "Pendente",
+    foto: "/assets/genetica-pelo-longo.jpg",
+    observacao: "Filhote em crescimento, aguardando reforço de 30 dias da vacina contra clostridioses.",
+  },
+];
+

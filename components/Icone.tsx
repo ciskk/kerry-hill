@@ -13,7 +13,15 @@ export type NomeIcone =
   | "phone"
   | "mail"
   | "crown"
-  | "heart";
+  | "heart"
+  | "tag"
+  | "shield-check"
+  | "shield-alert"
+  | "plus"
+  | "trash-2"
+  | "rotate-ccw"
+  | "scale"
+  | "droplets";
 
 interface IconeProps {
   nome: NomeIcone;
