@@ -9,6 +9,38 @@ export default function Leite() {
   
   // Estado para controlar qual dos três cards inferiores está aberto/expandido
   const [cardAberto, setCardAberto] = useState<number | null>(null);
+  // Estado para controlar qual garrafa está selecionada (começa na primeira para mostrar o detalhe)
+  const [garrafaAtiva, setGarrafaAtiva] = useState<number | null>(0);
+
+  const dadosGarrafas = [
+    {
+      percentual: "45%",
+      rotulo: "Crescimento da produção",
+      alturaBase: "h-[36%] sm:h-[32%]",
+      alturaAtiva: "h-[41%] sm:h-[38%]",
+      titulo: "45% de crescimento na produção nacional",
+      descricao:
+        "Nos últimos anos, a produção de leite de ovelha no Brasil apresentou um crescimento de aproximadamente 45%, impulsionado pelo interesse dos consumidores por produtos diferenciados e de maior valor agregado, como queijos artesanais, iogurtes e doces finos.",
+    },
+    {
+      percentual: "70%",
+      rotulo: "Beneficiado na fazenda",
+      alturaBase: "h-[46%] sm:h-[44%]",
+      alturaAtiva: "h-[51%] sm:h-[50%]",
+      titulo: "70% do leite é processado na própria fazenda",
+      descricao:
+        "Cerca de 70% do leite ovino brasileiro é transformado dentro da própria propriedade em queijos maturados, ricotas e iogurtes artesanais, gerando maior renda direta para o criador e preservando o frescor do leite.",
+    },
+    {
+      percentual: "13%",
+      rotulo: "Sólidos totais no leite",
+      alturaBase: "h-[30%] sm:h-[24%]",
+      alturaAtiva: "h-[35%] sm:h-[29%]",
+      titulo: "13% a 19% de sólidos totais no leite ovino",
+      descricao:
+        "O leite de ovelha tem quase o dobro de sólidos (gordura, proteínas e minerais) em comparação ao leite bovino. Na prática, bastam 4 a 5 litros de leite de ovelha para produzir 1 kg de queijo (contra 10 litros no leite de vaca).",
+    },
+  ];
 
   // Função para alternar o card aberto (abre se fechado, fecha se aberto ou se outro for clicado)
   const alternarCard = (id: number) => {
@@ -83,70 +115,92 @@ export default function Leite() {
             </div>
           </div>
 
-          {/* BLOCO DIREITO (55%): Garrafas */}
-          <div className="flex flex-row justify-center xl:justify-end items-end gap-4 md:gap-8 w-full xl:w-[55%] z-10 h-[270px] sm:h-[380px] md:h-[520px] lg:h-[580px] mt-4 xl:mt-0">
-            
-            {/* GARRAFA 1: Interativa (45%) */}
-            <div className="relative group w-[110px] md:w-[170px] lg:w-[200px] h-full cursor-pointer flex flex-col justify-end">
-              <img 
-                src="/assets/leite-frasco.png" 
-                alt="Garrafa de Leite" 
-                className="absolute inset-0 w-full h-full object-contain object-bottom drop-shadow-lg z-0 pointer-events-none"
-              />
-              
-              {/* Rótulo Branco Animado (O "Leite" contido no frasco) */}
-              <div className="absolute bottom-[9%] left-[14%] right-[14%] bg-white/95 rounded-t-sm rounded-b-[1.2rem] md:rounded-b-[1.8rem] z-10 overflow-hidden shadow-inner flex items-center justify-center
-                              h-[22%] group-hover:h-[48%] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
-                
-                {/* Estado 1: Fechado (Some no hover) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-2 transition-all duration-300 opacity-100 group-hover:opacity-0 group-hover:scale-90 text-center">
-                  <h3 className="text-[2rem] md:text-[3.2rem] font-black text-[#D03C7A] leading-none">45%</h3>
-                  <p className="text-[#D03C7A] text-[8px] md:text-[10px] font-bold mt-1 leading-tight">
-                    Crescimento da <br className="hidden md:block"/>produção
-                  </p>
-                </div>
+          {/* BLOCO DIREITO (55%): Garrafas Interativas + Balão Explicativo */}
+          <div className="flex flex-col items-center xl:items-end w-full xl:w-[55%] z-10 mt-2 xl:mt-0">
+            <p className="text-rosa text-xs md:text-sm font-bold mb-2 select-none">
+              clique em cada garrafa para comparar os dados ✨
+            </p>
 
-                {/* Estado 2: Aberto (Aparece no hover) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-2 md:p-4 transition-all duration-300 opacity-0 scale-110 group-hover:opacity-100 group-hover:scale-100 text-center">
-                  <img src="/assets/star.png" alt="Estrela" className="w-4 h-4 md:w-6 md:h-6 mb-1 md:mb-2 animate-pulse" 
-                       style={{ filter: "brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1900%) hue-rotate(314deg) brightness(91%) contrast(98%)" }}/>
-                  <p className="text-[#D03C7A] text-[7px] md:text-[9.5px] font-semibold leading-snug">
-                    Nos últimos anos, a produção de leite de ovelha no Brasil apresentou um crescimento de aproximadamente 45%, impulsionado pelo aumento do interesse dos consumidores por produtos diferenciados e de maior valor agregado, como queijos artesanais, iogurtes e outros derivados.
-                  </p>
-                </div>
-              </div>
+            <div className="flex flex-row justify-center xl:justify-end items-end gap-3 sm:gap-5 md:gap-8 w-full h-[300px] sm:h-[380px] md:h-[490px] lg:h-[530px]">
+              {dadosGarrafas.map((garrafa, idx) => {
+                const selecionada = garrafaAtiva === idx;
+                return (
+                  <button
+                    key={garrafa.percentual}
+                    type="button"
+                    onClick={() => setGarrafaAtiva(selecionada ? null : idx)}
+                    aria-expanded={selecionada}
+                    aria-label={`${garrafa.percentual} - ${garrafa.rotulo}`}
+                    className={`relative group w-[108px] sm:w-[135px] md:w-[170px] lg:w-[195px] h-full cursor-pointer flex flex-col justify-end transition-transform duration-300 focus:outline-none ${
+                      selecionada ? "-translate-y-2 scale-[1.03]" : "hover:-translate-y-1"
+                    }`}
+                  >
+                    <img
+                      src="/assets/leite-frasco.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 w-full h-full object-contain object-bottom drop-shadow-lg z-0 pointer-events-none"
+                    />
+
+                    {/* Nível do "Leite" branco proporcional à porcentagem */}
+                    <div
+                      className={`absolute bottom-[9%] left-[13%] right-[13%] sm:left-[14%] sm:right-[14%] bg-white/95 rounded-t-md rounded-b-[1.2rem] md:rounded-b-[1.8rem] z-10 overflow-hidden shadow-inner flex flex-col items-center justify-center p-1 sm:p-2 text-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] border-2 ${
+                        selecionada
+                          ? `${garrafa.alturaAtiva} border-rosa ring-4 ring-rosa/20`
+                          : `${garrafa.alturaBase} border-transparent group-hover:border-rosa/40`
+                      }`}
+                    >
+                      <h3 className="text-[1.45rem] sm:text-[2.2rem] md:text-[3rem] font-black text-rosa leading-none">
+                        {garrafa.percentual}
+                      </h3>
+                      <p className="text-rosa text-[9.5px] sm:text-xs md:text-[13px] font-bold mt-0.5 sm:mt-1 leading-tight">
+                        {garrafa.rotulo}
+                      </p>
+                      <span className="text-[8.5px] sm:text-[10px] md:text-[11px] font-bold text-rosa/75 mt-0.5 sm:mt-1">
+                        {selecionada ? "▲ aberto" : "▼ ler"}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* GARRAFA 2: Estática (70%) */}
-            <div className="relative w-[110px] md:w-[170px] lg:w-[200px] h-[95%] xl:h-full flex flex-col justify-end">
-              <img 
-                src="/assets/leite-frasco.png" 
-                alt="Garrafa de Leite" 
-                className="absolute inset-0 w-full h-full object-contain object-bottom drop-shadow-lg z-0 pointer-events-none"
-              />
-              <div className="absolute bottom-[9%] left-[14%] right-[14%] bg-white/95 rounded-t-sm rounded-b-[1.2rem] md:rounded-b-[1.8rem] z-10 h-[22%] flex flex-col items-center justify-center p-2 text-center shadow-inner">
-                <h3 className="text-[2rem] md:text-[3.2rem] font-black text-[#D03C7A] leading-none">70%</h3>
-                <p className="text-[#D03C7A] text-[8px] md:text-[10px] font-bold mt-1 md:mt-2 leading-tight">
-                  Do leite ovino no Brasil é processado na própria propriedade.
+            {/* Balão de Explicação Legível da Garrafa Selecionada */}
+            {garrafaAtiva !== null && (
+              <div
+                role="region"
+                aria-live="polite"
+                className="mt-5 w-full max-w-[640px] bg-papel border-2 border-rosa rounded-2xl p-5 md:p-6 shadow-md animate-pop-up text-left"
+              >
+                <div className="flex items-center justify-between gap-3 mb-1.5">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src="/assets/star.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="w-5 h-5 object-contain"
+                      style={{
+                        filter:
+                          "brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1900%) hue-rotate(314deg) brightness(91%) contrast(98%)",
+                      }}
+                    />
+                    <h4 className="text-base md:text-lg font-extrabold text-rosa">
+                      {dadosGarrafas[garrafaAtiva].titulo}
+                    </h4>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setGarrafaAtiva(null)}
+                    className="text-xs font-bold text-rosa hover:underline px-2 py-0.5 rounded shrink-0"
+                  >
+                    Fechar ✕
+                  </button>
+                </div>
+                <p className="text-black/85 text-sm md:text-base leading-relaxed font-medium">
+                  {dadosGarrafas[garrafaAtiva].descricao}
                 </p>
               </div>
-            </div>
-
-            {/* GARRAFA 3: Estática (13%) */}
-            <div className="relative w-[110px] md:w-[170px] lg:w-[200px] h-[90%] xl:h-full flex flex-col justify-end">
-              <img 
-                src="/assets/leite-frasco.png" 
-                alt="Garrafa de Leite" 
-                className="absolute inset-0 w-full h-full object-contain object-bottom drop-shadow-lg z-0 pointer-events-none"
-              />
-              <div className="absolute bottom-[9%] left-[14%] right-[14%] bg-white/95 rounded-t-sm rounded-b-[1.2rem] md:rounded-b-[1.8rem] z-10 h-[22%] flex flex-col items-center justify-center p-2 text-center shadow-inner">
-                <h3 className="text-[2rem] md:text-[3.2rem] font-black text-[#D03C7A] leading-none">13%</h3>
-                <p className="text-[#D03C7A] text-[8px] md:text-[10px] font-bold mt-1 md:mt-2 leading-tight">
-                  Teor médio de sólidos no leite de ovelha.
-                </p>
-              </div>
-            </div>
-
+            )}
           </div>
         </div>
 

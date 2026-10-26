@@ -5,6 +5,8 @@ import { useState } from "react";
 export default function Guia() {
   // Estado para controlar qual balão de pergunta está expandido (Accordion da Fase 5)
   const [balaoAberto, setBalaoAberto] = useState<number | null>(null);
+  // Estado para controlar qual foto inferior está expandida
+  const [fotoAberta, setFotoAberta] = useState<number | null>(null);
 
   const perguntasGuia = [
     {
@@ -24,6 +26,21 @@ export default function Guia() {
   const handleToggleBalao = (index: number) => {
     setBalaoAberto(balaoAberto === index ? null : index);
   };
+
+  const topicosFotos = [
+    {
+      titulo: "Guia de Vacinação",
+      imagem: "/assets/guia-vacina.jpg",
+      resumo: "Calendário essencial de imunização do rebanho",
+      detalhes: "A vacinação contra clostridioses é indispensável nos ovinos: aplique a primeira dose nos cordeiros aos 60 dias de vida, com reforço após 30 dias. Nas matrizes, faça o reforço anual no terço final da gestação para transferir anticorpos pelo colostro. Mantenha também a vermifugação seletiva (método Famacha) e a vacina antirrábica conforme a região."
+    },
+    {
+      titulo: "Cuidados na Lactação",
+      imagem: "/assets/guia-amamentacao.jpg",
+      resumo: "Nutrição e saúde do úbere durante a amamentação",
+      detalhes: "Durante a lactação, a necessidade de água e energia da ovelha dobra. Deixe água limpa e fresca sempre disponível à sombra, ofereça volumoso de alta qualidade com sal mineral específico para ovinos (baixo teor de cobre) e avalie o úbere semanalmente para prevenir a mastite e garantir o ganho de peso dos cordeiros."
+    }
+  ];
 
   return (
     <div className="w-full bg-creme text-rosa overflow-x-hidden min-h-screen font-sans">
@@ -119,38 +136,72 @@ export default function Guia() {
         </div>
 
         {/* =========================================
-            PARTE INFERIOR: Fotos e Legendas
+            PARTE INFERIOR: Fotos Interativas e Legendas
             ========================================= */}
-        <div className="flex flex-col md:flex-row gap-8 md:gap-14 w-full mt-16 md:mt-4 md:pl-8 justify-center md:justify-start relative z-30">
-          
-          {/* Card Foto 1 - Vacinação */}
-          <div className="flex flex-col items-center gap-3 group cursor-pointer">
-            <div className="w-[200px] h-[200px] md:w-[220px] md:h-[220px] rounded-[2rem] overflow-hidden group-hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
-              <img
-                src="/assets/guia-vacina.jpg"
-                alt="Guia de Vacinação"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h4 className="text-rosa text-[1.35rem] font-medium tracking-tight group-hover:text-rosa-escuro transition-colors">
-              Guia de Vacinação
-            </h4>
+        <div className="flex flex-col w-full mt-14 md:mt-4 md:pl-8 relative z-30">
+          <div className="flex flex-col sm:flex-row gap-8 md:gap-14 items-center sm:items-start justify-center md:justify-start">
+            {topicosFotos.map((item, idx) => {
+              const selecionada = fotoAberta === idx;
+              return (
+                <button
+                  key={item.titulo}
+                  type="button"
+                  onClick={() => setFotoAberta(selecionada ? null : idx)}
+                  aria-expanded={selecionada}
+                  className="flex flex-col items-center gap-2.5 group cursor-pointer focus:outline-none"
+                >
+                  <div
+                    className={`w-[200px] h-[200px] md:w-[220px] md:h-[220px] rounded-[2rem] overflow-hidden group-hover:-translate-y-2 transition-all duration-300 shadow-sm group-hover:shadow-md border-4 ${
+                      selecionada
+                        ? "border-rosa ring-4 ring-rosa/20 -translate-y-1"
+                        : "border-transparent group-focus-visible:border-rosa"
+                    }`}
+                  >
+                    <img
+                      src={item.imagem}
+                      alt={item.titulo}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h4 className="text-rosa text-[1.35rem] font-bold tracking-tight group-hover:text-rosa-escuro transition-colors">
+                    {item.titulo}
+                  </h4>
+                  <span className="text-xs font-bold text-rosa/75 bg-papel px-3 py-1 rounded-full border border-rosa/20">
+                    {selecionada ? "Fechar dica ▲" : "Clique para ler ▼"}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Card Foto 2 - Lactação */}
-          <div className="flex flex-col items-center gap-3 group cursor-pointer">
-            <div className="w-[200px] h-[200px] md:w-[220px] md:h-[220px] rounded-[2rem] overflow-hidden group-hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
-              <img
-                src="/assets/guia-amamentacao.jpg"
-                alt="Cuidados na Lactação"
-                className="w-full h-full object-cover"
-              />
+          {fotoAberta !== null && (
+            <div
+              role="region"
+              aria-live="polite"
+              className="mt-6 max-w-[620px] mx-auto md:mx-0 bg-papel border-2 border-rosa rounded-2xl p-6 shadow-md animate-pop-up relative"
+            >
+              <div className="flex justify-between items-start gap-4 mb-2">
+                <div>
+                  <h5 className="text-lg md:text-xl font-bold text-rosa">
+                    {topicosFotos[fotoAberta].titulo}
+                  </h5>
+                  <p className="text-xs font-semibold text-black/60">
+                    {topicosFotos[fotoAberta].resumo}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFotoAberta(null)}
+                  className="text-xs font-bold text-rosa hover:underline px-2 py-1 rounded"
+                >
+                  Fechar ✕
+                </button>
+              </div>
+              <p className="text-black/85 text-sm md:text-base leading-relaxed font-medium border-t border-rosa/15 pt-3 mt-2">
+                {topicosFotos[fotoAberta].detalhes}
+              </p>
             </div>
-            <h4 className="text-rosa text-[1.35rem] font-medium tracking-tight group-hover:text-rosa-escuro transition-colors">
-              Cuidados na Lactação
-            </h4>
-          </div>
-
+          )}
         </div>
 
       </div>
