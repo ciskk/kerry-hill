@@ -156,28 +156,47 @@ export default function Genetica() {
         >
           
           {/* CARD DA ESQUERDA (Ovelha de Pelo Ralo / Opção Correta) */}
-          <section className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[360px] md:min-h-[380px] transition-all duration-300
+          <section
+            role={mostrarQuiz ? "button" : undefined}
+            tabIndex={mostrarQuiz ? 0 : undefined}
+            aria-pressed={mostrarQuiz ? opcaoSelecionada === "esquerda" : undefined}
+            onClick={() => mostrarQuiz && handleEscolha("esquerda")}
+            onKeyDown={(e) => {
+              if (mostrarQuiz && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                handleEscolha("esquerda");
+              }
+            }}
+            className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[360px] md:min-h-[380px] transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-rosa
             ${mostrarQuiz 
-              ? "bg-amarelo-card border-4 border-dashed border-rosa/20 cursor-pointer hover:scale-105 hover:bg-amarelo-card/90 hover:border-solid hover:border-rosa" 
+              ? opcaoSelecionada === "esquerda"
+                ? "bg-amarelo-card border-4 border-solid border-rosa ring-4 ring-rosa/25 scale-[1.02] cursor-pointer"
+                : "bg-amarelo-card border-4 border-dashed border-rosa/25 cursor-pointer hover:scale-[1.02] hover:border-solid hover:border-rosa" 
               : "bg-amarelo-card"
             }`}
-            onClick={() => mostrarQuiz && handleEscolha("esquerda")}
           >
             {!mostrarQuiz ? (
-              <p className="text-[#D03C7A] text-lg md:text-[1.3rem] font-medium leading-relaxed text-center tracking-tight">
+              <p className="text-rosa text-lg md:text-[1.3rem] font-medium leading-relaxed text-center tracking-tight">
                 O melhoramento genético é o conjunto de técnicas utilizadas para selecionar e reproduzir os animais que possuem as melhores características, como maior produção de leite, boa fertilidade, resistência a doenças e adaptação ao clima da região.
               </p>
             ) : (
               <div className="flex flex-col w-full text-center">
-                <div className="w-full h-[220px] md:h-[260px] rounded-[2rem] overflow-hidden mb-6 shadow-md border-2 border-transparent hover:border-[#D03C7A]/40 transition-all duration-300">
+                <div className="w-full h-[220px] md:h-[260px] rounded-[2rem] overflow-hidden mb-5 shadow-md border-2 border-transparent transition-all duration-300">
                   <img 
                     src="/assets/genetica-pelo-ralo.jpg" 
                     alt="Ovelha reprodutora com características de pelo ralo" 
                     className="w-full h-full object-cover" 
                   />
                 </div>
-                <h4 className="text-xl font-bold mb-2">Opção A: Pelo Ralo</h4>
-                <ul className="text-[#D03C7A] text-left text-sm md:text-base font-semibold leading-snug space-y-2 mx-auto">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <h4 className="text-xl font-bold text-black">Opção A: Pelo Ralo</h4>
+                  {opcaoSelecionada === "esquerda" && (
+                    <span className="bg-rosa text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
+                      Escolhida ✨
+                    </span>
+                  )}
+                </div>
+                <ul className="text-rosa text-left text-sm md:text-base font-semibold leading-snug space-y-2 mx-auto">
                   <li>• Produção de leite das filhas: alta</li>
                   <li>• Boa resistência a doenças</li>
                   <li>• Elevada fertilidade geral</li>
@@ -193,9 +212,9 @@ export default function Genetica() {
                 type="button"
                 onClick={handleToggleQuiz}
                 aria-label="Ativar teste interativo de melhoramento genético"
-                className="relative bg-[#EAE7D6] border-[5px] md:border-[6px] border-[#E2C337] rounded-[2rem] p-8 md:p-10 text-left hover:scale-105 hover:bg-white active:scale-95 transition-all duration-300 shadow-md group w-[90%] md:w-full focus:outline-none focus:ring-4 focus:ring-[#D03C7A]/30"
+                className="relative bg-creme border-[5px] md:border-[6px] border-amarelo rounded-[2rem] p-8 md:p-10 text-left hover:scale-105 hover:bg-white active:scale-95 transition-all duration-300 shadow-md group w-[90%] md:w-full focus:outline-none focus:ring-4 focus:ring-rosa/30"
               >
-                <p className="text-[#D03C7A] text-[1.4rem] md:text-[1.6rem] font-bold text-center leading-snug tracking-tight">
+                <p className="text-rosa text-[1.4rem] md:text-[1.6rem] font-bold text-center leading-snug tracking-tight">
                   Clique aqui para testar a sua experiência de melhoramento genético!
                 </p>
 
@@ -211,7 +230,7 @@ export default function Genetica() {
                 
                 {resultado === null ? (
                   <div className="animate-pulse">
-                    <h3 className="text-[2.2rem] md:text-[3rem] font-bold text-[#D03C7A] leading-[1] tracking-tighter select-none">
+                    <h3 className="text-[2.2rem] md:text-[3rem] font-bold text-rosa leading-[1] tracking-tighter select-none">
                       Qual o melhor<br/>reprodutor<br/>para leite?
                     </h3>
                     <p className="text-xs font-semibold text-black/70 mt-4">
@@ -219,28 +238,33 @@ export default function Genetica() {
                     </p>
                   </div>
                 ) : resultado === "correto" ? (
-                  <div className="bg-[#E5CE82] border-4 border-[#D03C7A] rounded-3xl p-6 shadow-lg animate-pop-up flex flex-col items-center">
+                  <div className="bg-amarelo-card border-4 border-rosa rounded-3xl p-6 shadow-lg animate-pop-up flex flex-col items-center">
                     <h3 className="text-2xl font-black text-black leading-tight tracking-tight">
-                      Acertou em cheio!
+                      Acertou em cheio! ✨
                     </h3>
                     <p className="text-sm text-black/85 font-semibold mt-3 leading-snug">
                       Excelente escolha! Para melhorar a produção, o ideal é o animal de Pelo Ralo. Ele possui excelente adaptação térmica, maior imunidade e transmite alta capacidade láctea para as gerações futuras.
                     </p>
                   </div>
                 ) : (
-                  <div className="bg-red-500/10 border-4 border-red-500/40 rounded-3xl p-6 shadow-md animate-pop-up flex flex-col items-center">
-                    <h3 className="text-2xl font-black text-red-700 leading-tight tracking-tight">
+                  <div className="bg-papel border-4 border-dashed border-rosa rounded-3xl p-6 shadow-md animate-pop-up flex flex-col items-center">
+                    <img
+                      src="/assets/calculadora-cher.png"
+                      alt="Cher fazendo sinal de X"
+                      className="w-16 h-auto mb-2 drop-shadow-md"
+                    />
+                    <h3 className="text-2xl font-black text-rosa leading-tight tracking-tight">
                       Não é bem esse...
                     </h3>
-                    <p className="text-sm text-red-800/85 font-semibold mt-3 leading-snug">
-                      Embora o de Pelo Longo seja muito bonito visualmente, suas filhas têm apenas produção média e ele é menos resistente a doenças climáticas. Tente escolher o outro reprodutor!
+                    <p className="text-sm text-black/85 font-semibold mt-2.5 leading-snug">
+                      Embora o de Pelo Longo seja muito bonito visualmente, suas filhas têm apenas produção média e ele é menos resistente ao calor. Tente escolher o outro reprodutor!
                     </p>
                   </div>
                 )}
                 
                 <button 
                   onClick={handleToggleQuiz}
-                  className="text-xs font-bold text-[#D03C7A]/80 hover:text-[#D03C7A] hover:underline focus:ring-1 focus:ring-[#D03C7A] px-2 py-1 rounded transition-all mt-4"
+                  className="text-xs font-bold text-rosa/80 hover:text-rosa hover:underline focus:ring-1 focus:ring-rosa px-2 py-1 rounded transition-all mt-3"
                 >
                   ← Voltar à Explicação
                 </button>
@@ -249,28 +273,47 @@ export default function Genetica() {
           </div>
 
           {/* CARD DA DIREITA (Ovelha de Pelo Longo / Opção Incorreta) */}
-          <section className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[360px] md:min-h-[380px] transition-all duration-300
+          <section
+            role={mostrarQuiz ? "button" : undefined}
+            tabIndex={mostrarQuiz ? 0 : undefined}
+            aria-pressed={mostrarQuiz ? opcaoSelecionada === "direita" : undefined}
+            onClick={() => mostrarQuiz && handleEscolha("direita")}
+            onKeyDown={(e) => {
+              if (mostrarQuiz && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                handleEscolha("direita");
+              }
+            }}
+            className={`rounded-[2.5rem] p-8 md:p-10 w-full md:w-[35%] flex flex-col justify-center items-center shadow-sm min-h-[360px] md:min-h-[380px] transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-rosa
             ${mostrarQuiz 
-              ? "bg-amarelo-card border-4 border-dashed border-rosa/20 cursor-pointer hover:scale-105 hover:bg-amarelo-card/90 hover:border-solid hover:border-rosa" 
+              ? opcaoSelecionada === "direita"
+                ? "bg-amarelo-card border-4 border-solid border-rosa ring-4 ring-rosa/25 scale-[1.02] cursor-pointer"
+                : "bg-amarelo-card border-4 border-dashed border-rosa/25 cursor-pointer hover:scale-[1.02] hover:border-solid hover:border-rosa" 
               : "bg-amarelo-card"
             }`}
-            onClick={() => mostrarQuiz && handleEscolha("direita")}
           >
             {!mostrarQuiz ? (
-              <p className="text-[#D03C7A] text-lg md:text-[1.3rem] font-medium leading-relaxed text-center tracking-tight">
+              <p className="text-rosa text-lg md:text-[1.3rem] font-medium leading-relaxed text-center tracking-tight">
                 Ao escolher cuidadosamente os reprodutores e as matrizes, os criadores aumentam as chances de que essas qualidades sejam transmitidas para as próximas gerações. Dessa forma, o rebanho se torna mais produtivo, saudável e eficiente ao longo do tempo, contribuindo para melhores resultados na criação de ovinos.
               </p>
             ) : (
               <div className="flex flex-col w-full text-center">
-                <div className="w-full h-[220px] md:h-[260px] rounded-[2rem] overflow-hidden mb-6 shadow-md border-2 border-transparent hover:border-[#D03C7A]/40 transition-all duration-300">
+                <div className="w-full h-[220px] md:h-[260px] rounded-[2rem] overflow-hidden mb-5 shadow-md border-2 border-transparent transition-all duration-300">
                   <img 
                     src="/assets/genetica-pelo-longo.jpg" 
                     alt="Ovelha reprodutora com características de pelo longo" 
                     className="w-full h-full object-cover" 
                   />
                 </div>
-                <h4 className="text-xl font-bold mb-2">Opção B: Pelo Longo</h4>
-                <ul className="text-[#D03C7A] text-left text-sm md:text-base font-semibold leading-snug space-y-2 mx-auto">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <h4 className="text-xl font-bold text-black">Opção B: Pelo Longo</h4>
+                  {opcaoSelecionada === "direita" && (
+                    <span className="bg-rosa text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
+                      Escolhida
+                    </span>
+                  )}
+                </div>
+                <ul className="text-rosa text-left text-sm md:text-base font-semibold leading-snug space-y-2 mx-auto">
                   <li>• Muito bonito visualmente</li>
                   <li>• Produção de leite das filhas: média</li>
                   <li>• Resistência adaptativa média</li>

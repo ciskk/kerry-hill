@@ -253,7 +253,7 @@ Gerado na Calculadora Kerry Hill!`;
                 <button
                   type="button"
                   onClick={handleCopiarRelatorio}
-                  className={`mt-7 px-6 py-2.5 rounded-full font-bold text-sm shadow-md transition-all flex items-center gap-2 active:scale-95
+                  className={`mt-7 px-6 py-2.5 rounded-full font-bold text-sm shadow-md transition-all flex items-center gap-2 active:scale-95 relative z-10
                     ${copiado 
                       ? "bg-rosa-escuro text-white ring-2 ring-rosa/40" 
                       : "bg-rosa text-white hover:bg-rosa-escuro"
@@ -261,6 +261,14 @@ Gerado na Calculadora Kerry Hill!`;
                 >
                   {copiado ? "Copiado! ✨" : "Copiar Relatório 📋"}
                 </button>
+
+                {/* Sticker da Cher acompanhando o card de resultados */}
+                <img
+                  src="/assets/calculadora-cher.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-[80px] md:w-[105px] h-auto absolute -bottom-3 -right-2 md:-right-5 drop-shadow-xl pointer-events-none select-none"
+                />
 
               </div>
             )}
