@@ -50,7 +50,7 @@ export const destaquesHome: DestaqueHome[] = [
   },
 ];
 
-// Balões de perguntas e fotos interativas da página O Guia do Criador (/guia)
+// Balões de perguntas, fotos e checklist da página O Guia do Criador (/guia)
 export interface PerguntaGuia {
   pergunta: string;
   resposta: string;
@@ -76,6 +76,7 @@ export const perguntasGuia: PerguntaGuia[] = [
 
 export interface TopicoFotoGuia {
   titulo: string;
+  selo: string;
   imagem: string;
   resumo: string;
   detalhes: string;
@@ -84,6 +85,7 @@ export interface TopicoFotoGuia {
 export const topicosFotosGuia: TopicoFotoGuia[] = [
   {
     titulo: "Guia de Vacinação",
+    selo: "Imunização",
     imagem: "/assets/guia-vacina.jpg",
     resumo: "Calendário essencial de imunização do rebanho",
     detalhes:
@@ -91,10 +93,57 @@ export const topicosFotosGuia: TopicoFotoGuia[] = [
   },
   {
     titulo: "Cuidados na Lactação",
+    selo: "Amamentação",
     imagem: "/assets/guia-amamentacao.jpg",
     resumo: "Nutrição e saúde do úbere durante a amamentação",
     detalhes:
       "Durante a lactação, a necessidade de água e energia da ovelha dobra. Deixe água limpa e fresca sempre disponível à sombra, ofereça volumoso de alta qualidade com sal mineral específico para ovinos (baixo teor de cobre) e avalie o úbere semanalmente para prevenir a mastite e garantir o ganho de peso dos cordeiros.",
+  },
+];
+
+export interface ItemChecklistGuia {
+  id: string;
+  turno: "Manhã" | "Tarde" | "Semanal";
+  tarefa: string;
+  detalhe: string;
+}
+
+export const checklistManejoGuia: ItemChecklistGuia[] = [
+  {
+    id: "chk-1",
+    turno: "Manhã",
+    tarefa: "Inspeção dos bebedouros à sombra e troca de água fresca",
+    detalhe: "Ovelhas lactantes bebem até 10 L/dia; água quente reduz o consumo de ração.",
+  },
+  {
+    id: "chk-2",
+    turno: "Manhã",
+    tarefa: "Ordenha higiênica e teste da caneca de fundo escuro",
+    detalhe: "Detecta precocemente alterações no leite e previne casos de mastite no rebanho.",
+  },
+  {
+    id: "chk-3",
+    turno: "Tarde",
+    tarefa: "Suplementação no cocho e reposição de sal mineral ovino",
+    detalhe: "Utilizar exclusivamente sal mineral específico para ovinos (baixo teor de cobre).",
+  },
+  {
+    id: "chk-4",
+    turno: "Tarde",
+    tarefa: "Recolhimento das matrizes e cordeiros ao aprisco seco",
+    detalhe: "Protege contra predadores, sereno frio e umidade excessiva nos cascos.",
+  },
+  {
+    id: "chk-5",
+    turno: "Semanal",
+    tarefa: "Avaliação ocular Famacha e escore de condição corporal (ECC)",
+    detalhe: "Identifica anemia por verminose seletivamente sem precisar medicar todo o rebanho.",
+  },
+  {
+    id: "chk-6",
+    turno: "Semanal",
+    tarefa: "Conferência dos brincos e atualização do Livro de Registro",
+    detalhe: "Mantém a rastreabilidade genética e o histórico de pesagem sempre em dia.",
   },
 ];
 
