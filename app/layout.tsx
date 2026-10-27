@@ -40,7 +40,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} ${serifTitulo.variable}`}
     >
-      <body className="font-sans antialiased bg-creme min-h-screen flex flex-col text-rosa">
+      <body className="font-sans antialiased bg-creme bg-textura-scrapbook min-h-screen flex flex-col text-rosa">
         {/* BARRA DE NAVEGAÇÃO SUPERIOR (NAVBAR) */}
         <Navbar />
 

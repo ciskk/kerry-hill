@@ -17,7 +17,103 @@
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
+/* Textura sutil de caderno/scrapbook anos 90 */
+.bg-textura-scrapbook {
+  background-color: #EAE7D6;
+  background-image: radial-gradient(rgba(208, 60, 122, 0.11) 1.25px, transparent 1.25px);
+  background-size: 24px 24px;
+}
+
+/* Padrão Xadrez Clueless (Tartan amarelo/rosa sutil para painéis de destaque) */
+.bg-xadrez-clueless {
+  background-color: #E5CE82;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(208, 60, 122, 0.08) 0px,
+      rgba(208, 60, 122, 0.08) 2px,
+      transparent 2px,
+      transparent 28px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(208, 60, 122, 0.08) 0px,
+      rgba(208, 60, 122, 0.08) 2px,
+      transparent 2px,
+      transparent 28px
+    );
+}
+
+/* Brilho holográfico suave para Carteirinha VIP e selos especiais */
+.brilho-vip {
+  background-image: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.35) 48%,
+    rgba(255, 255, 255, 0) 65%
+  );
+  background-size: 200% 200%;
+  animation: shimmerVip 4.5s ease-in-out infinite;
+}
+
+/* Contornos tipográficos estilo revista teen / Clueless */
+.texto-contorno-rosa {
+  text-shadow:
+    2px 2px 0px #D03C7A,
+    -1px -1px 0px #D03C7A,
+    1px -1px 0px #D03C7A,
+    -1px 1px 0px #D03C7A;
+}
+
+.texto-contorno-rosa-sm {
+  text-shadow:
+    1.5px 1.5px 0px #D03C7A,
+    -1px -1px 0px #D03C7A,
+    1px -1px 0px #D03C7A,
+    -1px 1px 0px #D03C7A;
+}
+
+.texto-contorno-suave {
+  text-shadow:
+    2px 2px 0px #C24984,
+    -1px -1px 0px #C24984,
+    1px -1px 0px #C24984,
+    -1px 1px 0px #C24984;
+}
+
+/* Sombras deslocadas estilo Pop-Art / Colagem */
+.sombra-pop {
+  box-shadow: 5px 5px 0px rgba(208, 60, 122, 0.24);
+}
+
+.sombra-pop-sm {
+  box-shadow: 3.5px 3.5px 0px rgba(208, 60, 122, 0.22);
+}
+
+.sombra-pop-forte {
+  box-shadow: 6px 6px 0px #D03C7A;
+}
+
+
 /* Animações globais de alto desempenho (60 FPS) */
+@keyframes shimmerVip {
+  0%, 100% {
+    background-position: 200% 0;
+  }
+  50% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes flutuarSuave {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 @keyframes slideLeft {
   0% { opacity: 0; transform: translateX(-50px); }
   100% { opacity: 1; transform: translateX(0); }
@@ -54,6 +150,10 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
+.animate-flutuar {
+  animation: flutuarSuave 4s ease-in-out infinite;
+}
+
 .animate-slide-left {
   animation: slideLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -81,3 +181,4 @@
 .animate-fade-in-right {
   animation: fadeInRight 0.6s ease-out forwards;
 }
+
