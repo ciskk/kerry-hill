@@ -21,46 +21,42 @@ export default function CardExpansivel({
   const contentId = useId();
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
+    <button
+      type="button"
       aria-expanded={aberto}
       aria-controls={contentId}
       onClick={onAlternar}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onAlternar();
-        }
-      }}
-      className={`bg-amarelo-card rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px] shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-rosa focus-visible:ring-offset-2 ${
-        aberto ? "border-rosa" : "border-transparent"
+      className={`text-left bg-amarelo-card rounded-[2.5rem] p-8 md:p-10 pb-12 flex-1 w-full relative hover:-translate-y-2 transition-all duration-300 cursor-pointer select-none border-[3px] sombra-pop focus:outline-none focus-visible:ring-4 focus-visible:ring-rosa focus-visible:ring-offset-2 ${
+        aberto ? "border-rosa ring-2 ring-rosa/20" : "border-rosa/15 hover:border-rosa/50"
       }`}
     >
-      <h4 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
+      <h3 className="text-[1.4rem] md:text-[1.8rem] font-bold text-black mb-4 leading-[1.1] tracking-tight">
         {titulo}
-      </h4>
+      </h3>
 
       <div className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
         {resumo}
       </div>
 
-      {/* Informações detalhadas exibidas ao clicar */}
+      {/* Transição suave de altura usando CSS Grid para nunca cortar o conteúdo */}
       <div
         id={contentId}
-        className={`overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`grid transition-all duration-500 ease-in-out ${
           aberto
-            ? "max-h-[500px] opacity-100 mt-4 pt-4 border-t border-black/10"
-            : "max-h-0 opacity-0"
+            ? "grid-rows-[1fr] opacity-100 mt-4 pt-4 border-t border-black/10"
+            : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        {children}
+        <div className="overflow-hidden">{children}</div>
       </div>
 
-      <span className="absolute bottom-3 right-6 inline-flex items-center gap-1 text-[10px] md:text-xs font-bold text-black/50">
+      <span className="absolute bottom-3.5 right-6 inline-flex items-center gap-1 text-[11px] md:text-xs font-bold text-rosa/80">
         <span>{aberto ? "Clique para fechar" : "Clique para ler mais"}</span>
-        <Icone nome={aberto ? "chevron-up" : "chevron-down"} className="w-3.5 h-3.5" />
+        <Icone
+          nome={aberto ? "chevron-up" : "chevron-down"}
+          className="w-3.5 h-3.5"
+        />
       </span>
-    </div>
+    </button>
   );
 }
