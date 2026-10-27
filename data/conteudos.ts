@@ -177,6 +177,43 @@ export const opcoesQuizGenetica: Record<"esquerda" | "direita", OpcaoQuizGenetic
   },
 };
 
+// Cenários rápidos da Calculadora (/calculadora) para agilizar a apresentação
+export interface CenarioCalculadora {
+  id: string;
+  rotulo: string;
+  qtdOvelhas: string;
+  consumoRacao: string;
+  qtdLactacao: string;
+  producaoLeite: string;
+}
+
+export const cenariosCalculadora: CenarioCalculadora[] = [
+  {
+    id: "pequeno",
+    rotulo: "Sítio Escola (12 ovelhas)",
+    qtdOvelhas: "12",
+    consumoRacao: "1,4",
+    qtdLactacao: "8",
+    producaoLeite: "1,6",
+  },
+  {
+    id: "medio",
+    rotulo: "Fazenda Boutique (35 ovelhas)",
+    qtdOvelhas: "35",
+    consumoRacao: "1,6",
+    qtdLactacao: "24",
+    producaoLeite: "1,8",
+  },
+  {
+    id: "intensivo",
+    rotulo: "Laticínio Premium (80 ovelhas)",
+    qtdOvelhas: "80",
+    consumoRacao: "1,8",
+    qtdLactacao: "60",
+    producaoLeite: "2,1",
+  },
+];
+
 // Dados da aba Registro do Rebanho (/registro)
 export type CategoriaOvelha = "Matriz" | "Reprodutor" | "Cordeiro(a)";
 export type PelagemOvelha = "Pelo Ralo" | "Pelo Longo";
