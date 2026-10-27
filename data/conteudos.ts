@@ -201,8 +201,20 @@ export const fotosOvelhasRegistro = [
     rotulo: "Clássica Kerry Hill",
   },
   {
+    src: "/assets/genetica-kerry-hill-pura.jpg",
+    rotulo: "Kerry Hill Pura",
+  },
+  {
     src: "/assets/genetica-pelo-ralo.jpg",
     rotulo: "Linhagem Pelo Ralo",
+  },
+  {
+    src: "/assets/genetica-cordeiro-hibrido.jpg",
+    rotulo: "Cordeiro(a) F1",
+  },
+  {
+    src: "/assets/genetica-matriz-premiada.jpg",
+    rotulo: "Matriz Campeã",
   },
   {
     src: "/assets/genetica-pelo-longo.jpg",
@@ -218,9 +230,9 @@ export const rebanhoInicial: OvelhaRegistrada[] = [
     categoria: "Matriz",
     pelagem: "Pelo Ralo",
     pesoKg: "58",
-    producaoLitros: "1,8",
+    producaoLitros: "2,1",
     vacinacao: "Em dia",
-    foto: "/assets/inicio-ovelha-fofa.jpeg",
+    foto: "/assets/genetica-matriz-premiada.jpg",
     observacao: "Matriz líder do rebanho, dócil e com parto duplo recente.",
   },
   {
@@ -230,7 +242,7 @@ export const rebanhoInicial: OvelhaRegistrada[] = [
     categoria: "Matriz",
     pelagem: "Pelo Ralo",
     pesoKg: "55",
-    producaoLitros: "1,6",
+    producaoLitros: "1,8",
     vacinacao: "Em dia",
     foto: "/assets/genetica-pelo-ralo.jpg",
     observacao: "Excelente adaptação térmica ao clima do Nordeste e leite rico em sólidos.",
@@ -238,14 +250,25 @@ export const rebanhoInicial: OvelhaRegistrada[] = [
   {
     id: "kh-003",
     brinco: "KH-003",
+    nome: "Amber",
+    categoria: "Matriz",
+    pelagem: "Pelo Longo",
+    pesoKg: "60",
+    producaoLitros: "1,7",
+    vacinacao: "Em dia",
+    foto: "/assets/genetica-kerry-hill-pura.jpg",
+    observacao: "Linhagem pura britânica com manchas pretas simétricas nos olhos e patas.",
+  },
+  {
+    id: "kh-004",
+    brinco: "KH-004",
     nome: "Tai",
     categoria: "Cordeiro(a)",
-    pelagem: "Pelo Longo",
-    pesoKg: "26",
+    pelagem: "Pelo Ralo",
+    pesoKg: "28",
     producaoLitros: "0,0",
     vacinacao: "Pendente",
-    foto: "/assets/genetica-pelo-longo.jpg",
-    observacao: "Filhote em crescimento, aguardando reforço de 30 dias da vacina contra clostridioses.",
+    foto: "/assets/genetica-cordeiro-hibrido.jpg",
+    observacao: "Filhote F1 com alto vigor híbrido, aguardando reforço de 30 dias da vacina.",
   },
 ];
-
