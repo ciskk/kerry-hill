@@ -5,3 +5,4 @@ A equipe é composta por cinco profissionais, cada um com uma responsabilidade t
 O Francisco Cândido é o principal desenvolvedor com habilidades de um Sênior em Web Development.
 A Sofia é a UI Designer, responsável por toda a identidade visual do projeto.
 A Júlia Gerente de Marketing, decide o foco em que os criadores de ovelhas procuram e a divulgação de campanhas planejadas.
+A Karol é responsável pela pesquisa e consultoria zootécnica sobre genética, manejo e nutrição ovina.
