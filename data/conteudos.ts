@@ -21,12 +21,48 @@ export const linksNavegacao: LinkNavegacao[] = [
   { href: "/contato", label: "Contato", resumoApresentacao: "Clube VIP & Carteirinha" },
 ];
 
+// Faixa "Kerry Hill em Números" exibida na Home
+export interface NumeroKerryHillHome {
+  valor: string;
+  rotulo: string;
+  detalhe: string;
+  icone: NomeIcone;
+}
+
+export const numerosKerryHillHome: NumeroKerryHillHome[] = [
+  {
+    valor: "País de Gales",
+    rotulo: "Origem Histórica",
+    detalhe: "Raça britânica famosa pelas manchas pretas nos olhos, orelhas e patas.",
+    icone: "crown",
+  },
+  {
+    valor: "4,5 Litros",
+    rotulo: "Para 1 kg de Queijo",
+    detalhe: "Quase o dobro de sólidos totais em relação ao leite bovino comum.",
+    icone: "droplets",
+  },
+  {
+    valor: "+92% Adaptação",
+    rotulo: "Cruzamento Pelo Ralo",
+    detalhe: "Excelente tolerância ao calor do Nordeste brasileiro com vigor híbrido.",
+    icone: "sparkles",
+  },
+  {
+    valor: "100% Dócil",
+    rotulo: "Habilidade Materna",
+    detalhe: "Temperamento calmo, alta taxa de partos duplos e cuidado exemplar com as crias.",
+    icone: "heart",
+  },
+];
+
 // Cards de destaque exibidos na página inicial (Home)
 export interface DestaqueHome {
   titulo: string;
   href: string;
   descricao: string;
   delayClass: string;
+  selo: string;
 }
 
 export const destaquesHome: DestaqueHome[] = [
@@ -34,8 +70,9 @@ export const destaquesHome: DestaqueHome[] = [
     titulo: "Genética",
     href: "/genetica",
     descricao:
-      "Selecione os melhores animais. Aprenda como a genética pode aumentar a produtividade, a resistência e a qualidade do rebanho.",
+      "Selecione os melhores animais, explore nossa galeria de linhagens e simule cruzamentos F1 para elevar a produtividade e a resistência do rebanho.",
     delayClass: "delay-100",
+    selo: "Quiz + Simulador F1",
   },
   {
     titulo: "Produção de Leite",
@@ -43,13 +80,81 @@ export const destaquesHome: DestaqueHome[] = [
     descricao:
       "Mais leite, mais resultados. Conheça os fatores que influenciam a produção e descubra práticas para melhorar o desempenho das ovelhas.",
     delayClass: "delay-300",
+    selo: "Dados & Gráficos",
   },
   {
     titulo: "Guia do Criador",
     href: "/guia",
     descricao:
-      "Dicas para o dia a dia. Encontre orientações práticas sobre manejo, alimentação, reprodução e cuidados com o rebanho.",
+      "Dicas para o dia a dia. Encontre orientações práticas sobre manejo, alimentação, reprodução e checklist diário do rebanho.",
     delayClass: "delay-500",
+    selo: "Passo a Passo",
+  },
+];
+
+// Ferramentas práticas destacadas na Home para demonstração na apresentação
+export interface FerramentaDestaqueHome {
+  titulo: string;
+  subtitulo: string;
+  descricao: string;
+  href: string;
+  icone: NomeIcone;
+  cta: string;
+}
+
+export const ferramentasDestaqueHome: FerramentaDestaqueHome[] = [
+  {
+    titulo: "Calculadora Zootécnica",
+    subtitulo: "Ração, Água, Leite & Queijo",
+    descricao:
+      "Simule o consumo diário ou mensal do rebanho com 1 clique ou importe automaticamente os animais registrados no livro da fazenda!",
+    href: "/calculadora",
+    icone: "scale",
+    cta: "Abrir Calculadora",
+  },
+  {
+    titulo: "Livro de Registro",
+    subtitulo: "Controle Oficial do Rebanho",
+    descricao:
+      "Cadastre matrizes, reprodutores e cordeiros, acompanhe a carteira de vacinação e filtre cada linhagem ao vivo.",
+    href: "/registro",
+    icone: "tag",
+    cta: "Ver Fichas do Rebanho",
+  },
+];
+
+// Integrantes e papéis da equipe escolar (baseado no README do projeto)
+export interface IntegranteEquipe {
+  nome: string;
+  papel: string;
+  descricao: string;
+  icone: NomeIcone;
+}
+
+export const equipePatricinhas: IntegranteEquipe[] = [
+  {
+    nome: "Francisco Cândido",
+    papel: "Desenvolvedor Principal",
+    descricao: "Arquitetura web, interatividade em tempo real e ferramentas zootécnicas do site.",
+    icone: "sparkles",
+  },
+  {
+    nome: "Sofia",
+    papel: "UI Designer & Direção de Arte",
+    descricao: "Identidade visual inspirada em As Patricinhas de Beverly Hills, colagens e paleta de cores.",
+    icone: "crown",
+  },
+  {
+    nome: "Júlia",
+    papel: "Gerente de Marketing & Conteúdo",
+    descricao: "Foco estratégico nas demandas dos criadores de ovelhas e comunicação criativa do projeto.",
+    icone: "heart",
+  },
+  {
+    nome: "Karol",
+    papel: "Pesquisa & Consultoria Zootécnica",
+    descricao: "Levantamento de dados sobre genética de pelo ralo, manejo no Nordeste e nutrição ovina.",
+    icone: "shield-check",
   },
 ];
 
