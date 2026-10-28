@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import NavegacaoApresentacao from "@/components/NavegacaoApresentacao";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,6 +47,9 @@ export default function RootLayout({
 
         {/* CONTEÚDO DA PÁGINA */}
         <main className="flex-1 w-full flex flex-col">{children}</main>
+
+        {/* ROTEIRO SEQUENCIAL PARA APRESENTAÇÃO ESCOLAR */}
+        <NavegacaoApresentacao />
 
         {/* RODAPÉ DO PROJETO ESCOLAR */}
         <Footer />
