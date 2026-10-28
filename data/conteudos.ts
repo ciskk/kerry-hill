@@ -187,6 +187,93 @@ export const dadosGarrafasLeite: DadoGarrafaLeite[] = [
   },
 ];
 
+export interface ComparativoNutricionalLeite {
+  nutriente: string;
+  ovelhaValor: string;
+  vacaValor: string;
+  ovelhaPct: number;
+  vacaPct: number;
+  vantagem: string;
+}
+
+export const comparativoLeiteOvelhaVaca: ComparativoNutricionalLeite[] = [
+  {
+    nutriente: "Sólidos Totais",
+    ovelhaValor: "18,5%",
+    vacaValor: "12,5%",
+    ovelhaPct: 92,
+    vacaPct: 62,
+    vantagem: "+48% mais rendimento na queijaria",
+  },
+  {
+    nutriente: "Gordura Láctea (Glóbulos Finos)",
+    ovelhaValor: "7,1%",
+    vacaValor: "3,7%",
+    ovelhaPct: 88,
+    vacaPct: 46,
+    vantagem: "Mais cremosidade e fácil digestão",
+  },
+  {
+    nutriente: "Proteína (Caseína Alta)",
+    ovelhaValor: "5,8%",
+    vacaValor: "3,3%",
+    ovelhaPct: 85,
+    vacaPct: 48,
+    vantagem: "Coagulação firme e rápida para queijos finos",
+  },
+  {
+    nutriente: "Cálcio Biodisponível",
+    ovelhaValor: "195 mg/100g",
+    vacaValor: "120 mg/100g",
+    ovelhaPct: 95,
+    vacaPct: 58,
+    vantagem: "+62% mais cálcio natural por porção",
+  },
+];
+
+// Cards informativos expansíveis da seção inferior da página de Leite (/leite)
+export interface CardInformativoLeite {
+  id: number;
+  tituloLinha1: string;
+  tituloLinha2: string;
+  resumoTexto?: string;
+  resumoItens?: string[];
+  detalhes: string;
+}
+
+export const cardsInformativosLeite: CardInformativoLeite[] = [
+  {
+    id: 1,
+    tituloLinha1: "Períodos Críticos",
+    tituloLinha2: "da Lactação",
+    resumoTexto: "O que fazer nas fases em que a ovelha precisa de mais nutrientes.",
+    detalhes:
+      "O terço inicial da lactação (primeiras 6 semanas) é a fase de pico de produção de leite. Como as ovelhas consomem menos energia do que gastam nesse período, é indispensável fornecer volumoso de altíssima qualidade e suplementar com ração concentrada para evitar a perda de peso excessiva e distúrbios como a cetose.",
+  },
+  {
+    id: 2,
+    tituloLinha1: "Indicadores que o",
+    tituloLinha2: "Criador Deve Acompanhar",
+    resumoItens: [
+      "Produção diária",
+      "Consumo de água",
+      "Condição corporal",
+      "Saúde da glândula mamária",
+    ],
+    detalhes:
+      "Anote as variações diárias! Quedas repentinas de leite indicam problemas de saúde. Lembre-se que ovelhas lactantes podem beber mais de 10 litros de água por dia. Além disso, faça exames visuais regulares no úbere para identificar mastite subclínica precocemente.",
+  },
+  {
+    id: 3,
+    tituloLinha1: "Impacto do Calor",
+    tituloLinha2: "na Produção",
+    resumoTexto:
+      "Especialmente importante para o Nordeste. Dicas para amenizar o estresse térmico.",
+    detalhes:
+      "O estresse por calor diminui o apetite da ovelha e pode derrubar a produção de leite em até 30%. No Nordeste brasileiro, mantenha bebedouros sempre à sombra, adicione árvores nos pastos para sombra natural e evite movimentar o rebanho nas horas mais quentes do dia.",
+  },
+];
+
 // Opções do quiz de Melhoramento Genético (/genetica)
 export interface OpcaoQuizGenetica {
   id: "esquerda" | "direita";

@@ -1,57 +1,40 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useState } from "react";
+import AnimarScroll from "@/components/AnimarScroll";
 import CardExpansivel from "@/components/CardExpansivel";
 import Estrela from "@/components/Estrela";
 import Icone from "@/components/Icone";
 import TituloDuplo from "@/components/TituloDuplo";
-import { dadosGarrafasLeite } from "@/data/conteudos";
+import {
+  cardsInformativosLeite,
+  comparativoLeiteOvelhaVaca,
+  dadosGarrafasLeite,
+} from "@/data/conteudos";
 
 export default function Leite() {
-  const cardsRef = useRef<HTMLDivElement | null>(null);
-  const [cardsVisiveis, setCardsVisiveis] = useState(false);
-
   // Estado para controlar qual dos três cards inferiores está aberto/expandido
   const [cardAberto, setCardAberto] = useState<number | null>(null);
   // Estado para controlar qual garrafa está selecionada (começa na primeira para mostrar o detalhe)
   const [garrafaAtiva, setGarrafaAtiva] = useState<number | null>(0);
 
-  // Função para alternar o card aberto (abre se fechado, fecha se aberto ou se outro for clicado)
   const alternarCard = (id: number) => {
     setCardAberto((prev) => (prev === id ? null : id));
   };
 
-  useEffect(() => {
-    const currentCardsRef = cardsRef.current;
-    // Observador para ativar a animação de opacidade dos cards ao entrar na tela
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setCardsVisiveis(true);
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    if (currentCardsRef) {
-      observer.observe(currentCardsRef);
-    }
-
-    return () => {
-      if (currentCardsRef) observer.unobserve(currentCardsRef);
-    };
-  }, []);
-
   return (
-    <div className="w-full bg-creme text-rosa overflow-x-hidden min-h-screen font-sans pb-24 pt-10 md:pt-20">
-      {/* Contêiner Principal - Limitando a largura para telas muito grandes e centralizando */}
-      <div className="max-w-[1300px] w-full mx-auto px-6 md:px-12">
+    <div className="w-full text-rosa overflow-x-hidden min-h-screen font-sans pb-14 pt-10 md:pt-20">
+      {/* Contêiner Principal */}
+      <div className="max-w-[1300px] w-full mx-auto px-6 md:px-12 space-y-16 xl:space-y-24">
         {/* =========================================
             SEÇÃO SUPERIOR: Título, Espelho e Garrafas
             ========================================= */}
         <div className="flex flex-col xl:flex-row justify-between items-center xl:items-start gap-8 xl:gap-8 relative w-full">
           {/* BLOCO ESQUERDO (45%): Título + Espelho */}
-          <div className="flex flex-col items-center xl:items-start relative w-full xl:w-[45%] z-20">
+          <AnimarScroll
+            variante="esquerda"
+            className="flex flex-col items-center xl:items-start relative w-full xl:w-[45%] z-20"
+          >
             <TituloDuplo
               principal="Produção"
               subtitulo="de Leite"
@@ -78,11 +61,15 @@ export default function Leite() {
                 className="w-full h-auto drop-shadow-2xl relative z-10 hover:-translate-y-2 transition-transform duration-500"
               />
             </div>
-          </div>
+          </AnimarScroll>
 
           {/* BLOCO DIREITO (55%): Garrafas Interativas + Balão Explicativo */}
-          <div className="flex flex-col items-center xl:items-end w-full xl:w-[55%] z-10 mt-2 xl:mt-0">
-            <p className="inline-flex items-center gap-1.5 text-rosa text-xs md:text-sm font-bold mb-2 select-none">
+          <AnimarScroll
+            variante="direita"
+            atrasoMs={140}
+            className="flex flex-col items-center xl:items-end w-full xl:w-[55%] z-10 mt-2 xl:mt-0"
+          >
+            <p className="inline-flex items-center gap-1.5 bg-papel px-3.5 py-1 rounded-full border border-rosa/20 text-rosa text-xs md:text-sm font-bold mb-2 select-none shadow-xs">
               <span>clique em cada garrafa para comparar os dados</span>
               <Icone nome="sparkles" className="w-4 h-4" />
             </p>
@@ -98,7 +85,9 @@ export default function Leite() {
                     aria-expanded={selecionada}
                     aria-label={`${garrafa.percentual} - ${garrafa.rotulo}`}
                     className={`relative group w-[108px] sm:w-[135px] md:w-[170px] lg:w-[195px] h-full cursor-pointer flex flex-col justify-end transition-transform duration-300 focus:outline-none ${
-                      selecionada ? "-translate-y-2 scale-[1.03]" : "hover:-translate-y-1"
+                      selecionada
+                        ? "-translate-y-2 scale-[1.03]"
+                        : "hover:-translate-y-1"
                     }`}
                   >
                     <img
@@ -108,20 +97,26 @@ export default function Leite() {
                       className="absolute inset-0 w-full h-full object-contain object-bottom drop-shadow-lg z-0 pointer-events-none"
                     />
 
-                    {/* Nível do "Leite" branco proporcional à porcentagem */}
+                    {/* Nível do "Leite" branco proporcional à porcentagem com acabamento de espuma */}
                     <div
-                      className={`absolute bottom-[9%] left-[13%] right-[13%] sm:left-[14%] sm:right-[14%] bg-white/95 rounded-t-md rounded-b-[1.2rem] md:rounded-b-[1.8rem] z-10 overflow-hidden shadow-inner flex flex-col items-center justify-center p-1 sm:p-2 text-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] border-2 ${
+                      className={`absolute bottom-[9%] left-[13%] right-[13%] sm:left-[14%] sm:right-[14%] bg-white/95 rounded-t-xl rounded-b-[1.2rem] md:rounded-b-[1.8rem] z-10 overflow-hidden shadow-inner flex flex-col items-center justify-center p-1 sm:p-2 text-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] border-2 ${
                         selecionada
                           ? `${garrafa.alturaAtiva} border-rosa ring-4 ring-rosa/20`
-                          : `${garrafa.alturaBase} border-transparent group-hover:border-rosa/40`
+                          : `${garrafa.alturaBase} border-rosa/15 group-hover:border-rosa/50`
                       }`}
                     >
-                      <h3 className="text-[1.45rem] sm:text-[2.2rem] md:text-[3rem] font-black text-rosa leading-none">
+                      {/* Ondinha superior simulando a superfície do leite */}
+                      <div
+                        aria-hidden="true"
+                        className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rosa/10 via-amarelo-card/45 to-rosa/10"
+                      />
+
+                      <span className="text-[1.45rem] sm:text-[2.2rem] md:text-[3rem] font-black text-rosa leading-none">
                         {garrafa.percentual}
-                      </h3>
-                      <p className="text-rosa text-[9.5px] sm:text-xs md:text-[13px] font-bold mt-0.5 sm:mt-1 leading-tight">
+                      </span>
+                      <span className="text-rosa text-[9.5px] sm:text-xs md:text-[13px] font-bold mt-0.5 sm:mt-1 leading-tight">
                         {garrafa.rotulo}
-                      </p>
+                      </span>
                       <span className="inline-flex items-center gap-0.5 text-[8.5px] sm:text-[10px] md:text-[11px] font-bold text-rosa/75 mt-0.5 sm:mt-1">
                         <Icone
                           nome={selecionada ? "chevron-up" : "chevron-down"}
@@ -140,7 +135,7 @@ export default function Leite() {
               <div
                 role="region"
                 aria-live="polite"
-                className="mt-5 w-full max-w-[640px] bg-papel border-2 border-rosa rounded-2xl p-5 md:p-6 shadow-md animate-pop-up text-left"
+                className="mt-5 w-full max-w-[640px] bg-papel border-2 border-rosa rounded-2xl p-5 md:p-6 sombra-pop animate-pop-up text-left"
               >
                 <div className="flex items-center justify-between gap-3 mb-1.5">
                   <div className="flex items-center gap-2">
@@ -150,9 +145,9 @@ export default function Leite() {
                       velocidadeGiro="parada"
                       className="w-5 h-5"
                     />
-                    <h4 className="text-base md:text-lg font-extrabold text-rosa">
+                    <h2 className="text-base md:text-lg font-extrabold text-rosa">
                       {dadosGarrafasLeite[garrafaAtiva].titulo}
-                    </h4>
+                    </h2>
                   </div>
                   <button
                     type="button"
@@ -168,90 +163,139 @@ export default function Leite() {
                 </p>
               </div>
             )}
-          </div>
+          </AnimarScroll>
         </div>
 
         {/* =========================================
-            SEÇÃO INFERIOR: Cards Amarelos Interativos
+            NOVA SEÇÃO VISUAL: LEITE DE OVELHA VS. LEITE DE VACA
             ========================================= */}
-        <div
-          ref={cardsRef}
-          className={`flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 md:gap-4 w-full mt-16 xl:mt-24 transition-opacity duration-1000 ease-in-out relative z-30 ${
-            cardsVisiveis ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          {/* Card 1 */}
-          <CardExpansivel
-            titulo={
-              <>
-                Períodos Críticos <br /> da Lactação
-              </>
-            }
-            resumo={
-              <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
-                O que fazer nas fases em que a ovelha precisa de mais nutrientes.
-              </p>
-            }
-            aberto={cardAberto === 1}
-            onAlternar={() => alternarCard(1)}
-          >
-            <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
-              O terço inicial da lactação (primeiras 6 semanas) é a fase de pico de produção de leite. Como as ovelhas consomem menos energia do que gastam nesse período, é indispensável fornecer volumoso de altíssima qualidade e suplementar com ração concentrada para evitar a perda de peso excessiva e distúrbios como a cetose.
-            </p>
-          </CardExpansivel>
+        <AnimarScroll variante="escala">
+          <div className="bg-papel/95 border-2 border-rosa/25 rounded-[2.5rem] p-6 sm:p-8 md:p-10 sombra-pop">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 text-center md:text-left">
+              <div>
+                <span className="inline-flex items-center gap-1.5 bg-rosa text-white text-xs font-bold px-3.5 py-1 rounded-full mb-2">
+                  <Icone nome="droplets" className="w-3.5 h-3.5" />
+                  <span>Superioridade Nutricional & Queijeira</span>
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-serif text-amarelo italic texto-contorno-rosa leading-tight">
+                  Leite de Ovelha vs. Leite de Vaca
+                </h2>
+                <p className="text-rosa text-xs sm:text-sm font-semibold mt-1">
+                  Veja por que apenas 4,5 litros de leite ovino produzem 1 kg de
+                  queijo artesanal:
+                </p>
+              </div>
 
-          {/* Estrela Separadora 1 */}
-          <div className="hidden md:flex items-center justify-center w-12 shrink-0">
-            <Estrela filtroRosa className="w-8 h-8 md:w-10 md:h-10" />
+              <div className="flex items-center gap-4 text-xs font-extrabold">
+                <span className="inline-flex items-center gap-1.5 text-rosa">
+                  <span className="w-3.5 h-3.5 rounded-full bg-rosa inline-block" />
+                  <span>Leite de Ovelha Kerry Hill</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-black/65">
+                  <span className="w-3.5 h-3.5 rounded-full bg-amarelo-card border border-rosa/30 inline-block" />
+                  <span>Leite Bovino</span>
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {comparativoLeiteOvelhaVaca.map((item) => (
+                <div
+                  key={item.nutriente}
+                  className="bg-creme/55 border border-rosa/20 rounded-2xl p-4 sm:p-5"
+                >
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <h3 className="text-base sm:text-lg font-extrabold text-black">
+                      {item.nutriente}
+                    </h3>
+                    <span className="text-[11px] font-black text-rosa bg-papel px-2.5 py-0.5 rounded-full border border-rosa/20">
+                      {item.vantagem}
+                    </span>
+                  </div>
+
+                  {/* Barra Ovelha */}
+                  <div className="mb-2.5">
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span className="text-rosa font-extrabold">
+                        Ovelha Kerry Hill
+                      </span>
+                      <span className="text-rosa font-black">
+                        {item.ovelhaValor}
+                      </span>
+                    </div>
+                    <div className="w-full h-3 bg-papel rounded-full overflow-hidden border border-rosa/20">
+                      <div
+                        className="h-full bg-rosa rounded-full"
+                        style={{ width: `${item.ovelhaPct}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Barra Vaca */}
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span className="text-black/65">Vaca Comum</span>
+                      <span className="text-black/75">{item.vacaValor}</span>
+                    </div>
+                    <div className="w-full h-2.5 bg-papel rounded-full overflow-hidden border border-rosa/15">
+                      <div
+                        className="h-full bg-amarelo-card rounded-full"
+                        style={{ width: `${item.vacaPct}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+        </AnimarScroll>
 
-          {/* Card 2 */}
-          <CardExpansivel
-            titulo={
-              <>
-                Indicadores que o <br /> Criador Deve Acompanhar
-              </>
-            }
-            resumo={
-              <ul className="text-black/80 text-sm md:text-base leading-relaxed font-medium list-disc pl-5 space-y-1">
-                <li>Produção diária</li>
-                <li>Consumo de água</li>
-                <li>Condição corporal</li>
-                <li>Saúde da glândula mamária</li>
-              </ul>
-            }
-            aberto={cardAberto === 2}
-            onAlternar={() => alternarCard(2)}
-          >
-            <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
-              Anote as variações diárias! Quedas repentinas de leite indicam problemas de saúde. Lembre-se que ovelhas lactantes podem beber mais de 10 litros de água por dia. Além disso, faça exames visuais regulares no úbere para identificar mastite subclínica precocemente.
-            </p>
-          </CardExpansivel>
+        {/* =========================================
+            SEÇÃO INFERIOR: Cards Amarelos Interativos em Cascata
+            ========================================= */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 md:gap-4 w-full relative z-30">
+          {cardsInformativosLeite.map((card, index) => (
+            <Fragment key={card.id}>
+              {index > 0 && (
+                <div className="hidden md:flex items-center justify-center w-12 shrink-0">
+                  <Estrela filtroRosa className="w-8 h-8 md:w-10 md:h-10" />
+                </div>
+              )}
 
-          {/* Estrela Separadora 2 */}
-          <div className="hidden md:flex items-center justify-center w-12 shrink-0">
-            <Estrela filtroRosa className="w-8 h-8 md:w-10 md:h-10" />
-          </div>
-
-          {/* Card 3 */}
-          <CardExpansivel
-            titulo={
-              <>
-                Impacto do Calor <br /> na Produção
-              </>
-            }
-            resumo={
-              <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
-                Especialmente importante para o Nordeste. Dicas para amenizar o estresse térmico.
-              </p>
-            }
-            aberto={cardAberto === 3}
-            onAlternar={() => alternarCard(3)}
-          >
-            <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
-              O estresse por calor diminui o apetite da ovelha e pode derrubar a produção de leite em até 30%. No Nordeste brasileiro, mantenha bebedouros sempre à sombra, adicione árvores nos pastos para sombra natural e evite movimentar o rebanho nas horas mais quentes do dia.
-            </p>
-          </CardExpansivel>
+              <AnimarScroll
+                variante="colagem"
+                atrasoMs={index * 140}
+                className="flex-1 w-full flex"
+              >
+                <CardExpansivel
+                  titulo={
+                    <>
+                      {card.tituloLinha1} <br /> {card.tituloLinha2}
+                    </>
+                  }
+                  resumo={
+                    card.resumoItens ? (
+                      <ul className="text-black/80 text-sm md:text-base leading-relaxed font-medium list-disc pl-5 space-y-1">
+                        {card.resumoItens.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-black/80 text-sm md:text-base leading-relaxed font-medium">
+                        {card.resumoTexto}
+                      </p>
+                    )
+                  }
+                  aberto={cardAberto === card.id}
+                  onAlternar={() => alternarCard(card.id)}
+                >
+                  <p className="text-black text-sm md:text-base leading-relaxed font-semibold">
+                    {card.detalhes}
+                  </p>
+                </CardExpansivel>
+              </AnimarScroll>
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>
