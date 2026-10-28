@@ -3,19 +3,22 @@
 // Arquivo centralizado para facilitar a leitura e manutenção do código
 // ============================================================================
 
+import type { NomeIcone } from "@/components/Icone";
+
 export interface LinkNavegacao {
   href: string;
   label: string;
+  resumoApresentacao: string;
 }
 
 export const linksNavegacao: LinkNavegacao[] = [
-  { href: "/", label: "Início" },
-  { href: "/guia", label: "Guia" },
-  { href: "/leite", label: "Leite" },
-  { href: "/genetica", label: "Genética" },
-  { href: "/calculadora", label: "Calculadora" },
-  { href: "/registro", label: "Registro" },
-  { href: "/contato", label: "Contato" },
+  { href: "/", label: "Início", resumoApresentacao: "Apresentação & Destaques" },
+  { href: "/guia", label: "Guia", resumoApresentacao: "Manejo, Vacinas & Cuidados" },
+  { href: "/leite", label: "Leite", resumoApresentacao: "Estatísticas & Lactação" },
+  { href: "/genetica", label: "Genética", resumoApresentacao: "Linhagens, Cruzamento F1 & Quiz" },
+  { href: "/calculadora", label: "Calculadora", resumoApresentacao: "Simulador de Ração, Água & Queijo" },
+  { href: "/registro", label: "Registro", resumoApresentacao: "Livro Zootécnico do Rebanho" },
+  { href: "/contato", label: "Contato", resumoApresentacao: "Clube VIP & Carteirinha" },
 ];
 
 // Cards de destaque exibidos na página inicial (Home)
@@ -826,3 +829,24 @@ export const rebanhoInicial: OvelhaRegistrada[] = [
     observacao: "Filhote F1 com alto vigor híbrido, aguardando reforço de 30 dias da vacina.",
   },
 ];
+
+// Dados da página de Contato e Clube VIP (/contato)
+export interface ItemContato {
+  icone: NomeIcone;
+  texto: string;
+}
+
+export const canaisContato: ItemContato[] = [
+  { icone: "phone", texto: "00 0000 0000" },
+  { icone: "mail", texto: "reperquilson@email.com" },
+  { icone: "mail", texto: "reperkelly@email.com" },
+];
+
+export const cargosClubeVip = [
+  "Especialista em Genética",
+  "Mestre Queijeiro(a)",
+  "Patricinha Chefe do Manejo",
+  "Consultor(a) de Nutrição Ovina",
+] as const;
+
+export type CargoClubeVip = (typeof cargosClubeVip)[number];
