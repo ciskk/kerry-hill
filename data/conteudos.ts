@@ -442,6 +442,258 @@ export const linhagensGenetica: LinhagemGenetica[] = [
   },
 ];
 
+// Simulador Interativo de Cruzamento Genético (Pai x Mãe -> Cordeiro F1)
+export interface OpcaoParenteCruzamento {
+  id: string;
+  nome: string;
+  linhagem: string;
+  genotipo: string;
+  imagem: string;
+  leiteBase: number;
+  calorBase: number;
+  rusticidadeBase: number;
+  solidosBase: number;
+}
+
+export const reprodutoresCruzamento: OpcaoParenteCruzamento[] = [
+  {
+    id: "pai-ralo",
+    nome: "Reprodutor Pelo Ralo Tropical",
+    linhagem: "Pelo Ralo Adaptado",
+    genotipo: "RR (Homozigoto Tropical)",
+    imagem: "/assets/genetica-pelo-ralo.jpg",
+    leiteBase: 88,
+    calorBase: 98,
+    rusticidadeBase: 95,
+    solidosBase: 86,
+  },
+  {
+    id: "pai-kerry",
+    nome: "Reprodutor Kerry Hill Puro",
+    linhagem: "Padrão Britânico",
+    genotipo: "KH (Linhagem Galesa)",
+    imagem: "/assets/genetica-kerry-hill-pura.jpg",
+    leiteBase: 85,
+    calorBase: 72,
+    rusticidadeBase: 80,
+    solidosBase: 96,
+  },
+  {
+    id: "pai-f1",
+    nome: "Reprodutor Mestiço F1 Selecionado",
+    linhagem: "Composto Kerry × Pelo Ralo",
+    genotipo: "KR (Heterozigoto Elite)",
+    imagem: "/assets/genetica-cordeiro-hibrido.jpg",
+    leiteBase: 92,
+    calorBase: 91,
+    rusticidadeBase: 92,
+    solidosBase: 92,
+  },
+];
+
+export const matrizesCruzamento: OpcaoParenteCruzamento[] = [
+  {
+    id: "mae-kerry",
+    nome: "Matriz Kerry Hill Pura",
+    linhagem: "Padrão Britânico",
+    genotipo: "KH (Alta Habilidade Materna)",
+    imagem: "/assets/inicio-ovelha-fofa.jpeg",
+    leiteBase: 86,
+    calorBase: 74,
+    rusticidadeBase: 82,
+    solidosBase: 96,
+  },
+  {
+    id: "mae-premiada",
+    nome: "Matriz Campeã de Lactação",
+    linhagem: "Elite Leiteira Tropical",
+    genotipo: "CSN3-BB (Pelo Curto)",
+    imagem: "/assets/genetica-matriz-premiada.jpg",
+    leiteBase: 96,
+    calorBase: 90,
+    rusticidadeBase: 90,
+    solidosBase: 94,
+  },
+  {
+    id: "mae-longo",
+    nome: "Matriz Linhagem Pelo Longo",
+    linhagem: "Clássica Lanada",
+    genotipo: "ll (Lã Densa)",
+    imagem: "/assets/genetica-pelo-longo.jpg",
+    leiteBase: 64,
+    calorBase: 48,
+    rusticidadeBase: 66,
+    solidosBase: 84,
+  },
+];
+
+export interface ResultadoCruzamentoF1 {
+  tituloNinhada: string;
+  genotipoFilhote: string;
+  pelagemResultante: string;
+  vigorHibridoBonus: string;
+  imagemFilhote: string;
+  leiteFinal: number;
+  calorFinal: number;
+  rusticidadeFinal: number;
+  solidosFinal: number;
+  estimativaLitrosDia: string;
+  vereditoCher: string;
+}
+
+export function calcularCruzamentoF1(
+  paiId: string,
+  maeId: string
+): ResultadoCruzamentoF1 {
+  const pai =
+    reprodutoresCruzamento.find((p) => p.id === paiId) ??
+    reprodutoresCruzamento[0];
+  const mae =
+    matrizesCruzamento.find((m) => m.id === maeId) ?? matrizesCruzamento[0];
+
+  // Se os pais são de linhagens diferentes, aplica bônus de heterose (vigor híbrido)
+  const temHeteroseAlta = pai.linhagem !== mae.linhagem;
+  const bonus = temHeteroseAlta ? 7 : 2;
+
+  const leiteFinal = Math.min(
+    99,
+    Math.round((pai.leiteBase + mae.leiteBase) / 2 + bonus)
+  );
+  const calorFinal = Math.min(
+    99,
+    Math.round((pai.calorBase * 0.55 + mae.calorBase * 0.45) + (temHeteroseAlta ? 5 : 0))
+  );
+  const rusticidadeFinal = Math.min(
+    99,
+    Math.round((pai.rusticidadeBase + mae.rusticidadeBase) / 2 + bonus)
+  );
+  const solidosFinal = Math.min(
+    99,
+    Math.round((pai.solidosBase + mae.solidosBase) / 2 + (temHeteroseAlta ? 4 : 1))
+  );
+
+  const litrosNum = 1.1 + (leiteFinal / 100) * 1.35;
+  const estimativaLitrosDia = litrosNum.toFixed(1).replace(".", ",");
+
+  if (pai.id === "pai-ralo" && (mae.id === "mae-kerry" || mae.id === "mae-premiada")) {
+    return {
+      tituloNinhada: "Cordeiro(a) F1 Gold Standard (Kerry × Pelo Ralo)",
+      genotipoFilhote: "KR-F1 • Heterose Máxima (+22%)",
+      pelagemResultante: "Pelo Ralo com Marcações Kerry Hill",
+      vigorHibridoBonus: "+22% de Vigor Híbrido",
+      imagemFilhote: "/assets/genetica-cordeiro-hibrido.jpg",
+      leiteFinal,
+      calorFinal,
+      rusticidadeFinal,
+      solidosFinal,
+      estimativaLitrosDia,
+      vereditoCher:
+        "Aprovadíssimo pelas Patricinhas! Esse é o cruzamento dos sonhos para o Brasil: une o leite riquíssimo da Kerry Hill com a resistência térmica imbatível do Pelo Ralo!",
+    };
+  }
+
+  if (mae.id === "mae-longo" && pai.id === "pai-ralo") {
+    return {
+      tituloNinhada: "F1 de Transição Tropical (Melhoramento de Pelagem)",
+      genotipoFilhote: "Rl-F1 • Pelagem Intermediária Curta",
+      pelagemResultante: "Meio-Sangue Pelo Curto (Mais Fresco)",
+      vigorHibridoBonus: "+18% de Ganho Adaptativo",
+      imagemFilhote: "/assets/genetica-pelo-ralo.jpg",
+      leiteFinal,
+      calorFinal,
+      rusticidadeFinal,
+      solidosFinal,
+      estimativaLitrosDia,
+      vereditoCher:
+        "Ótimo resgate genético! Usar o reprodutor de Pelo Ralo sobre a matriz de Pelo Longo já reduz o estresse térmico das filhas logo na primeira geração (F1)!",
+    };
+  }
+
+  if (pai.id === "pai-kerry" && mae.id === "mae-kerry") {
+    return {
+      tituloNinhada: "Linhagem Pura Prescorrida (Kerry Hill Pedigree)",
+      genotipoFilhote: "KH/KH • Homozigoto Puro",
+      pelagemResultante: "Lã Clássica com Manchas Pretas Simétricas",
+      vigorHibridoBonus: "Fidelidade Racial 100%",
+      imagemFilhote: "/assets/genetica-kerry-hill-pura.jpg",
+      leiteFinal,
+      calorFinal,
+      rusticidadeFinal,
+      solidosFinal,
+      estimativaLitrosDia,
+      vereditoCher:
+        "Um clássico britânico! Excelente para preservar o núcleo puro da raça e produzir matrizes lindas, mas lembre-se de garantir bastante sombra e água fresca no verão!",
+    };
+  }
+
+  return {
+    tituloNinhada: "Geração Selecionada de Dupla Aptidão",
+    genotipoFilhote: "KH-Elite • Alto Valor Genético",
+    pelagemResultante:
+      calorFinal >= 85 ? "Pelagem Curta Adaptada" : "Pelagem Mista Selecionada",
+    vigorHibridoBonus: temHeteroseAlta ? "+16% de Vigor Híbrido" : "+8% de Consolidação",
+    imagemFilhote:
+      leiteFinal >= 90
+        ? "/assets/genetica-matriz-premiada.jpg"
+        : "/assets/genetica-cordeiro-hibrido.jpg",
+    leiteFinal,
+    calorFinal,
+    rusticidadeFinal,
+    solidosFinal,
+    estimativaLitrosDia,
+    vereditoCher:
+      "Combinação super equilibrada! A prole herda ótimo volume de leite com alto teor de sólidos para queijos artesanais e excelente saúde de rebanho.",
+  };
+}
+
+export interface EtapaEvolucaoGeracao {
+  geracao: string;
+  titulo: string;
+  composicaoGenetica: string;
+  leiteMedio: string;
+  adaptacaoCalor: number;
+  descricao: string;
+}
+
+export const geracoesEvolucaoGenetica: EtapaEvolucaoGeracao[] = [
+  {
+    geracao: "G0",
+    titulo: "Rebanho Base Inicial",
+    composicaoGenetica: "Matrizes sem seleção dirigida",
+    leiteMedio: "0,9 L/dia",
+    adaptacaoCalor: 55,
+    descricao:
+      "Rebanho de partida com alta variação individual, menor persistência de lactação e sensibilidade ao calor nas horas de pico.",
+  },
+  {
+    geracao: "F1",
+    titulo: "1ª Geração: Choque de Sangue & Heterose",
+    composicaoGenetica: "50% Kerry Hill + 50% Pelo Ralo",
+    leiteMedio: "1,6 L/dia",
+    adaptacaoCalor: 84,
+    descricao:
+      "O cruzamento dirigido dispara o vigor híbrido: cordeiros mais pesados ao desmame, queda drástica de ectoparasitas e salto no volume de leite.",
+  },
+  {
+    geracao: "F2",
+    titulo: "2ª Geração: Seleção por Desempenho",
+    composicaoGenetica: "Acasalamento das melhores matrizes F1",
+    leiteMedio: "2,0 L/dia",
+    adaptacaoCalor: 91,
+    descricao:
+      "Através do Livro de Registro, apenas as filhas das ovelhas mais leiteiras e termotolerantes permanecem como matrizes.",
+  },
+  {
+    geracao: "Elite",
+    titulo: "Rebanho Estabilizado Kerry Hill Tropical",
+    composicaoGenetica: "Núcleo Genético Consolidado",
+    leiteMedio: "2,4 L/dia",
+    adaptacaoCalor: 96,
+    descricao:
+      "Rebanho altamente produtivo, adaptado ao clima brasileiro, dócil na ordenha e com leite rico em sólidos para queijaria fina!",
+  },
+];
+
 // Cenários rápidos da Calculadora (/calculadora) para agilizar a apresentação
 export interface CenarioCalculadora {
   id: string;
