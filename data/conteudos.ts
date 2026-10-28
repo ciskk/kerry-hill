@@ -274,44 +274,173 @@ export const cardsInformativosLeite: CardInformativoLeite[] = [
   },
 ];
 
-// Opções do quiz de Melhoramento Genético (/genetica)
+// ============================================================================
+// ABA GENÉTICA (/genetica) - QUIZ, GALERIA DE LINHAGENS, SIMULADOR F1 E EVOLUÇÃO
+// ============================================================================
+
+export interface AtributoGenetico {
+  rotulo: string;
+  nivel: number; // 0 a 100
+  destaque: string;
+}
+
 export interface OpcaoQuizGenetica {
   id: "esquerda" | "direita";
   titulo: string;
+  selo: string;
+  genotipo: string;
   imagem: string;
   alt: string;
   textoIntroducao: string;
   caracteristicas: string[];
+  atributosBarras: AtributoGenetico[];
 }
 
 export const opcoesQuizGenetica: Record<"esquerda" | "direita", OpcaoQuizGenetica> = {
   esquerda: {
     id: "esquerda",
     titulo: "Opção A: Pelo Ralo",
+    selo: "Alta Performance",
+    genotipo: "Linhagem Tropicalizada (RR)",
     imagem: "/assets/genetica-pelo-ralo.jpg",
     alt: "Ovelha reprodutora com características de pelo ralo",
     textoIntroducao:
       "O melhoramento genético é o conjunto de técnicas utilizadas para selecionar e reproduzir os animais que possuem as melhores características, como maior produção de leite, boa fertilidade, resistência a doenças e adaptação ao clima da região.",
     caracteristicas: [
-      "Produção de leite das filhas: alta",
-      "Boa resistência a doenças",
-      "Elevada fertilidade geral",
+      "Produção de leite das filhas: alta (1,8 a 2,4 L/dia)",
+      "Excelente dissipação de calor e resistência a parasitas",
+      "Elevada fertilidade e partos duplos frequentes",
+    ],
+    atributosBarras: [
+      { rotulo: "Potencial Leiteiro", nivel: 92, destaque: "Alto" },
+      { rotulo: "Adaptação ao Calor", nivel: 95, destaque: "Excelente" },
+      { rotulo: "Resistência & Fertilidade", nivel: 90, destaque: "Elevada" },
     ],
   },
   direita: {
     id: "direita",
     titulo: "Opção B: Pelo Longo",
+    selo: "Linhagem Clássica",
+    genotipo: "Linhagem Lanada (ll)",
     imagem: "/assets/genetica-pelo-longo.jpg",
     alt: "Ovelha reprodutora com características de pelo longo",
     textoIntroducao:
       "Ao escolher cuidadosamente os reprodutores e as matrizes, os criadores aumentam as chances de que essas qualidades sejam transmitidas para as próximas gerações. Dessa forma, o rebanho se torna mais produtivo, saudável e eficiente ao longo do tempo, contribuindo para melhores resultados na criação de ovinos.",
     caracteristicas: [
-      "Muito bonito visualmente",
-      "Produção de leite das filhas: média",
-      "Resistência adaptativa média",
+      "Lã densa e muito bonita para climas frios",
+      "Produção de leite das filhas: média sob calor",
+      "Exige tosquia periódica e sombra constante",
+    ],
+    atributosBarras: [
+      { rotulo: "Potencial Leiteiro", nivel: 58, destaque: "Médio" },
+      { rotulo: "Adaptação ao Calor", nivel: 45, destaque: "Sensível" },
+      { rotulo: "Estética da Lã", nivel: 95, destaque: "Exuberante" },
     ],
   },
 };
+
+export interface LinhagemGenetica {
+  id: string;
+  nome: string;
+  apelidoClube: string;
+  selo: string;
+  genotipo: string;
+  imagem: string;
+  herdabilidade: string;
+  leiteMedio: string;
+  toleranciaCalor: string;
+  prolificidade: string;
+  resumo: string;
+  explicacaoCientifica: string;
+  marcadoresDna: string[];
+}
+
+export const linhagensGenetica: LinhagemGenetica[] = [
+  {
+    id: "kerry-pura",
+    nome: "Kerry Hill Pura (Origem Galesa)",
+    apelidoClube: "A Patricinha Clássica",
+    selo: "Padrão Oficial da Raça",
+    genotipo: "KH / KH • Dominante",
+    imagem: "/assets/genetica-kerry-hill-pura.jpg",
+    herdabilidade: "h² = 0,35 (Alta fidelidade racial)",
+    leiteMedio: "1,7 L/dia",
+    toleranciaCalor: "Moderada (Clima Ameno)",
+    prolificidade: "1,75 cordeiro/parto",
+    resumo:
+      "Reconhecida mundialmente pelas manchas pretas simétricas nos olhos, focinho, orelhas e joelhos.",
+    explicacaoCientifica:
+      "Originária do condado de Powys (País de Gales), a Kerry Hill pura transmite excelente habilidade materna, docilidade extrema e leite com altíssimo teor de sólidos (proteína e gordura). Em regiões tropicais, é a base ideal para cruzamentos absorventes ou industriais.",
+    marcadoresDna: [
+      "Pigmentação ocular preta (proteção solar natural contra fotofobia)",
+      "Úbere bem inserido e tetas simétricas",
+      "Alta longevidade produtiva no rebanho",
+    ],
+  },
+  {
+    id: "pelo-ralo-tropical",
+    nome: "Seleção Pelo Ralo Tropical",
+    apelidoClube: "A Rainha do Nordeste",
+    selo: "Adaptação Climática",
+    genotipo: "RR / TC • Termotolerante",
+    imagem: "/assets/genetica-pelo-ralo.jpg",
+    herdabilidade: "h² = 0,42 (Pelagem & Rusticidade)",
+    leiteMedio: "1,9 L/dia",
+    toleranciaCalor: "Máxima (Até 38 °C sem estresse)",
+    prolificidade: "1,80 cordeiro/parto",
+    resumo:
+      "Pelagem curta e lisa que reflete a radiação solar e elimina o custo de tosquia em regiões quentes.",
+    explicacaoCientifica:
+      "Animais selecionados para pelo ralo mantêm a frequência respiratória estável mesmo sob sol forte, não reduzem a ingestão de matéria seca no verão e apresentam até 65% menos infestação por ectoparasitas, destinando toda a energia da dieta para a síntese de leite.",
+    marcadoresDna: [
+      "Gene de pelagem curta com baixa retenção térmica",
+      "Alta resistência natural a verminoses gastrintestinais",
+      "Persistência de lactação mesmo na estação seca",
+    ],
+  },
+  {
+    id: "cordeiro-f1-hibrido",
+    nome: "Cruzamento F1 (Vigor Híbrido)",
+    apelidoClube: "A Nova Geração VIP",
+    selo: "Heterose Máxima",
+    genotipo: "KH × RR • Híbrido F1",
+    imagem: "/assets/genetica-cordeiro-hibrido.jpg",
+    herdabilidade: "Ganho de Heterose: +18% a +25%",
+    leiteMedio: "2,2 L/dia (fêmeas adultas)",
+    toleranciaCalor: "Alta (94% de adaptação)",
+    prolificidade: "1,90 cordeiro/parto",
+    resumo:
+      "Combina a riqueza láctea e estética da Kerry Hill com a rusticidade tropical do Pelo Ralo.",
+    explicacaoCientifica:
+      "O fenômeno genético da Heterose (ou Vigor Híbrido) ocorre quando cruzamos duas linhagens distintas e complementares. Os cordeiros F1 nascem mais vigorosos, ganham peso mais rápido até o desmame e as fêmeas F1 superam a média dos próprios pais em produção de leite e fertilidade!",
+    marcadoresDna: [
+      "Pelagem intermediária curta com marcações Kerry Hill",
+      "Maior taxa de sobrevivência neonatal (+22%)",
+      "Conversão alimentar superior em pasto e cocho",
+    ],
+  },
+  {
+    id: "matriz-campeao-leite",
+    nome: "Matriz Elite Dupla Aptidão",
+    apelidoClube: "A Líder do Laticínio",
+    selo: "Linhagem Leiteira",
+    genotipo: "CSN3-BB • Kappa-Caseína B",
+    imagem: "/assets/genetica-matriz-premiada.jpg",
+    herdabilidade: "h² = 0,30 (Volume & Sólidos)",
+    leiteMedio: "2,5 L/dia",
+    toleranciaCalor: "Alta com manejo sombreado",
+    prolificidade: "1,85 cordeiro/parto",
+    resumo:
+      "Selecionada por provas zootécnicas para máximo rendimento em queijos finos e lactação longa.",
+    explicacaoCientifica:
+      "Portadora do alelo B da Kappa-Caseína, proteína que torna o coágulo do leite mais firme e aumenta o rendimento queijeiro em até 12%. Possui lactação persistente de 180 a 210 dias e conformação de úbere ideal para ordenha mecânica ou manual.",
+    marcadoresDna: [
+      "Alelo CSN3-BB para alta concentração de caseína",
+      "Capacidade torácica e digestiva ampliada",
+      "Temperamento calmo na sala de ordenha",
+    ],
+  },
+];
 
 // Cenários rápidos da Calculadora (/calculadora) para agilizar a apresentação
 export interface CenarioCalculadora {
